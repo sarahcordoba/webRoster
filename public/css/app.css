@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-bg-light: #f9fafc; /* fondo normal */
+    --color-bg-dark: #333;
+    --color-sb-light: #ffffff; /* fondo de la sidebar */
+    --color-sb-dark: #2d2d2d;
+    --color-text-light: #333; /* tecto normal */
+    --color-text-dark: #f9fafc;
+    /* --color-primary-light: #00796b;
+    --color-primary-dark: #00bfa5;  */
+    --color-primary-light: #ff94ac; 
+    --color-primary-dark: #ff7b9d;
+    --color-step: #007bff; /* color cuando selecciono un step del form */
+    --color-card-header: #343a40; /* header form */
+    --color-step-light: #e9ecef; /* color step claro */
+    --color-step-dark: #666667; /* color step claro */
+    --color-form-dark: #3b3b3b;/*  no me acuerdo */
+    --color-form-border: #444; /*  borde del form oscuro */
+}
+
+* {
+    font-family: "Host Grotesk", 'Times New Roman', Times, serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-sb-light);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* modo claro */
+body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+}
+
+/* modo oscuro */
+body.dark-mode {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+}
+
+/* boton modo oscuro */
+.mode-toggle {
+    background-color: var(--color-primary-light);
+    color: var(--color-text-dark);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 20px;
+    /* Espacio superior para separarlo del contenido */
+}
+
+body.dark-mode .mode-toggle {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-light);
+}
+
+/* contenido principla */
+.content {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* pantallas pequeñas */
+@media (min-width: 769px) {
+    .main-container {
+        flex-direction: row;
+    }
+}

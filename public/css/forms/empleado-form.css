@@ -1,0 +1,287 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color:var(--color-bg-light); */
+    border-radius: 8px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+/* .dark-mode .container{
+    background-color: var(--color-sb-dark); 
+} */
+
+.titulito p {
+    color: var(--color-text-light);
+}
+
+.titulito {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.dark-mode .titulito p {
+    color: var(--color-text-dark);
+}
+
+p {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.steps-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.step {
+    background-color: var(--color-step-light);
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.dark-mode .step {
+    background-color: var(--color-step-dark);
+}
+
+.steps-header .step.active {
+    background-color: var(--color-step);
+    color: var(--color-sb-light);
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.dark-mode .card {
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--color-card-header);
+    color: var(--color-sb-light);
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: 5px;
+}
+
+.dark-mode .form-group label {
+    color: var(--color-text-dark);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--color-text-light);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--color-sb-light);
+    background-color: var(--color-step);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.form-actions button:hover {
+    background-color: #0056b3;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #4caf50;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+
+.text-muted {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--color-sb-light);
+}
+
+.btn-primary {
+    background-color: var(--color-step);
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.hidden {
+    display: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* modo oscuro input  */
+.dark-mode input[type="text"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"],
+.dark-mode textarea {
+    background-color: var(--color-form-dark);
+    /* Fondo oscuro para el input */
+    color: var(--color-text-dark);
+    /* Color del texto */
+    border: 1px solid #444;
+    /* Borde más claro que el fondo */
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    display: block;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+
+}
+
+select:focus, select:active {
+    border: 1px solid #ddd;
+    box-shadow: none;
+    outline: none;
+}
+
+.dark-mode select {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-form-dark);
+    color: var(--color-text-dark) !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+}
+
+.dark-mode select:focus {
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+}
+
+.dark-mode select option {
+    background-color: var(--color-form-dark);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 4px;
+}
+
+/* estilos de autofill en modo claro */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: var(--color-sb-light) !important;
+    -webkit-text-fill-color: var(--color-text-light) !important;
+    /* Color del texto en autofill */
+    font-size: 1rem !important;
+    /* Tamaño de fuente específico */
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-sb-light) inset !important;
+}
+
+/* ESTO NO FUNCIONO */
+/* Autofill en modo oscuro */
+.dark-mode input:-webkit-autofill,
+.dark-mode textarea:-webkit-autofill,
+.dark-mode select:-webkit-autofill {
+    background-color: var(--color-form-dark) !important;
+    -webkit-text-fill-color: var(--color-text-dark) !important; /* Asegura el color del texto en autofill */
+    font-size: 16px !important; /* Tamaño constante de la fuente */
+    caret-color: var(--color-text-dark); /* Color de la barra de inserción */
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-form-dark) inset !important;
+}
+
+/* Mantiene el mismo estilo en focus y hover, incluyendo cuando pierde foco */
+.dark-mode input:-webkit-autofill:focus,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode textarea:-webkit-autofill:focus,
+.dark-mode textarea:-webkit-autofill:hover,
+.dark-mode select:-webkit-autofill:focus,
+.dark-mode select:-webkit-autofill:hover {
+    -webkit-text-fill-color: var(--color-text-dark) !important;
+    font-size: 16px !important;
+}
+
+/* Aplica el color también al estado 'active' para cuando se pierde el foco */
+.dark-mode input:-webkit-autofill:active,
+.dark-mode textarea:-webkit-autofill:active,
+.dark-mode select:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--color-text-dark) !important;
+    font-size: 16px !important;
+}
