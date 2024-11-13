@@ -35,4 +35,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // agregar el evento de clic al botón de modo oscuro
-document.getElementById('modeToggle').addEventListener('click', toggleMode);
+// document.getElementById('modeToggle').addEventListener('click', toggleMode);
