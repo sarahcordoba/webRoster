@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Deduccion extends Model
+class Comision extends Model
 {
     use HasFactory;
 
     // Nombre de la tabla
-    protected $table = 'deduccion';
+    protected $table = 'comision';
 
     // Campos asignables masivamente
     protected $fillable = [

@@ -1,8 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
-use App\Models\Departamento;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
@@ -10,107 +10,66 @@ class EmpleadoController extends Controller
     // Mostrar todos los empleados
     public function index()
     {
-        $empleados = Empleado::with('departamento')->get(); // Cargar empleados con departamentos
+        $empleados = Empleado::all();
         return view('empleados.index', compact('empleados'));
     }
 
-    // Mostrar el formulario para crear un nuevo empleado
+    // Mostrar el formulario de creación
     public function create()
     {
-        $departamentos = Departamento::all(); // Obtener todos los departamentos para la lista desplegable
-        return view('empleados.create', compact('departamentos'));
+        return view('empleados.create');
     }
 
-    // Guardar un nuevo empleado
+    // Guardar un nuevo empleado en la base de datos
     public function store(Request $request)
     {
         $request->validate([
-            'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
             'primer_nombre' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'tipo_identificacion' => 'required|string|max:50',
-            'numero_identificacion' => 'required|string|unique:empleados,numero_identificacion',
             'municipio' => 'required|string|max:100',
             'direccion' => 'required|string|max:500',
-            'celular' => 'nullable|string|max:15',
-            'correo' => 'required|string|email|max:255|unique:empleados,correo',
+            'correo' => 'required|string|email|max:255|unique:empleados',
             'tipo_contrato' => 'required|string|max:50',
-            'salario' => 'required|decimal:0,2',
-            'tipo_trabajador' => 'required|string|max:50',
-            'fecha_contratacion' => 'required|date',
-            'frecuencia_pago' => 'required|string|max:50',
-            'cargo' => 'required|string|max:255',
-            'dias_vacaciones' => 'nullable|integer',
-            'area' => 'required|string|max:255',
-            'departamento_id' => 'required|integer|exists:departamentos,idDepartamento', // Asegúrate de que este campo sea válido
-            'metodo_pago' => 'required|string|max:255',
-            'eps' => 'required|string|max:255',
-            'caja_compensacion' => 'required|string|max:255',
-            'fondo_pensiones' => 'required|string|max:255',
-            'fondo_cesantias' => 'required|string|max:255',
+            'salario' => 'required|numeric',
+            // Agrega las demás validaciones según los campos que necesites
         ]);
 
         Empleado::create($request->all());
 
-        return redirect()->route('empleados.index')->with('success', 'Empleado creado con éxito.');
+        return redirect()->route('empleados.index')->with('success', 'Empleado creado exitosamente.');
     }
 
     // Mostrar un empleado específico
-    public function show($id)
+    public function show(Empleado $empleado)
     {
-        $empleado = Empleado::with('departamento')->findOrFail($id); // Cargar empleado con su departamento
         return view('empleados.show', compact('empleado'));
     }
 
-    // Mostrar el formulario para editar un empleado existente
-    public function edit($id)
+    // Mostrar el formulario para editar un empleado
+    public function edit(Empleado $empleado)
     {
-        $empleado = Empleado::findOrFail($id);
-        $departamentos = Departamento::all(); // Obtener departamentos para la lista desplegable
-        return view('empleados.edit', compact('empleado', 'departamentos'));
+        return view('empleados.edit', compact('empleado'));
     }
 
-    // Actualizar un empleado existente
-    public function update(Request $request, $id)
+    // Actualizar un empleado en la base de datos
+    public function update(Request $request, Empleado $empleado)
     {
         $request->validate([
-            'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
             'primer_nombre' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
-            'tipo_identificacion' => 'required|string|max:50',
-            'numero_identificacion' => 'required|string|unique:empleados,numero_identificacion',
-            'municipio' => 'required|string|max:100',
-            'direccion' => 'required|string|max:500',
-            'celular' => 'nullable|string|max:15',
-            'correo' => 'required|string|email|max:255|unique:empleados,correo',
-            'tipo_contrato' => 'required|string|max:50',
-            'salario' => 'required|decimal:0,2',
-            'tipo_trabajador' => 'required|string|max:50',
-            'fecha_contratacion' => 'required|date',
-            'frecuencia_pago' => 'required|string|max:50',
-            'cargo' => 'required|string|max:255',
-            'dias_vacaciones' => 'nullable|integer',
-            'area' => 'required|string|max:255',
-            'departamento_id' => 'required|integer|exists:departamentos,idDepartamento', // Asegúrate de que este campo sea válido
-            'metodo_pago' => 'required|string|max:255',
-            'eps' => 'required|string|max:255',
-            'caja_compensacion' => 'required|string|max:255',
-            'fondo_pensiones' => 'required|string|max:255',
-            'fondo_cesantias' => 'required|string|max:255',
+            // Agrega las demás validaciones necesarias
         ]);
 
-        $empleado = Empleado::findOrFail($id);
         $empleado->update($request->all());
 
-        return redirect()->route('empleados.index')->with('success', 'Empleado actualizado con éxito.');
+        return redirect()->route('empleados.index')->with('success', 'Empleado actualizado exitosamente.');
     }
 
-    // Eliminar un empleado existente
-    public function destroy($id)
+    // Eliminar un empleado de la base de datos
+    public function destroy(Empleado $empleado)
     {
-        $empleado = Empleado::findOrFail($id);
         $empleado->delete();
-
-        return redirect()->route('empleados.index')->with('success', 'Empleado eliminado con éxito.');
+        return redirect()->route('empleados.index')->with('success', 'Empleado eliminado exitosamente.');
     }
 }

@@ -9,7 +9,10 @@ class CreateEmpleadosTable extends Migration
     public function up()
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->string('idEmpleado', 15)->primary(); //numero de identificación
+            $table->id()->primary(); //numero de identificación
+            $table->unsignedBigInteger('idEmpleador'); //numero de identificación
+            $table->foreign('idEmpleador')->references('id')->on('users');
+
             $table->string('primer_nombre', 50);
             $table->string('segundo_nombre', 50)->nullable();
             $table->string('primer_apellido', 50);
@@ -33,13 +36,13 @@ class CreateEmpleadosTable extends Migration
             $table->string('cargo', 255);
             $table->integer('dias_vacaciones');
             $table->string('area', 255);
-            $table->integer('departamento_id')->unsigned();
+            //$table->integer('departamento_id')->unsigned();
             $table->string('metodo_pago', 255);
             $table->string('eps', 255);
             $table->string('caja_compensacion', 255);
             $table->string('fondo_pensiones', 255);
             $table->string('fondo_cesantias', 255);
-            $table->foreign('departamento_id')->references('idDepartamento')->on('departamentos');
+            //$table->foreign('departamento_id')->references('idDepartamento')->on('departamentos');
         });
     }
 

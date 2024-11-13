@@ -2,21 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Nomina extends Model
 {
-    protected $table = 'nominas'; // Nombre de la tabla
-    protected $primaryKey = 'idNomina'; // Clave primaria
+    use HasFactory;
 
-    protected $fillable = ['empleado_id', 'periodo', 'fechaPago', 'montoBruto', 'montoNeto']; // Campos rellenables
+    // Nombre de la tabla
+    protected $table = 'nominas';
 
-    public $timestamps = false; // Si no tienes timestamps
+    // Campos asignables masivamente
+    protected $fillable = [
+        'empleado_id',
+        'idLiquidacion',
+        'estado',
+        'salario_base',
+        'total_deducciones',
+        'total_comisiones',
+        'total',
+    ];
 
-    // Relacion con el modelo Empleado
+    // Relación con el modelo Empleado
     public function empleado()
     {
-        return $this->belongsTo(Empleado::class, 'empleado_id', 'idEmpleado');
+        return $this->belongsTo(Empleado::class, 'empleado_id');
+    }
+
+    // Relación con el modelo Liquidacion
+    public function liquidacion()
+    {
+        return $this->belongsTo(Liquidacion::class, 'idLiquidacion');
     }
 }
-

@@ -2,29 +2,52 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Empleado extends Model
 {
-    protected $table = 'empleados'; // Nombre de la tabla
-    protected $primaryKey = 'idEmpleado'; // Clave primaria
+    use HasFactory;
 
+    // Nombre de la tabla (opcional si coincide con el nombre en plural del modelo)
+    protected $table = 'empleados';
+
+    // Definir los campos asignables masivamente
     protected $fillable = [
-        'primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido',
-        'tipo_identificacion', 'municipio', 'direccion',
-        'celular', 'correo', 'tipo_contrato', 'salario', 'tipo_trabajador',
-        'salario_integral', 'fecha_contratacion', 'frecuencia_pago', 
-        'subtipo_trabajador', 'auxilio_transporte', 'alto_riesgo', 
-        'sabado_laboral', 'nivel_riesgo', 'cargo', 'dias_vacaciones', 
-        'area', 'departamento', 'metodo_pago', 'eps', 'caja_compensacion', 
-        'fondo_pensiones', 'fondo_cesantias'
+        'idEmpleador',
+        'primer_nombre',
+        'segundo_nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'tipo_identificacion',
+        'municipio',
+        'direccion',
+        'celular',
+        'correo',
+        'tipo_contrato',
+        'salario',
+        'tipo_trabajador',
+        'salario_integral',
+        'fecha_contratacion',
+        'frecuencia_pago',
+        'subtipo_trabajador',
+        'auxilio_transporte',
+        'alto_riesgo',
+        'sabado_laboral',
+        'nivel_riesgo',
+        'cargo',
+        'dias_vacaciones',
+        'area',
+        'metodo_pago',
+        'eps',
+        'caja_compensacion',
+        'fondo_pensiones',
+        'fondo_cesantias',
     ];
 
-    public $timestamps = false; // Si no tienes timestamps
-
-    // Relación con el modelo Departamento
-    public function departamento()
+    // Relación con el modelo Liquidacion
+    public function liquidaciones()
     {
-        return $this->belongsTo(Departamento::class, 'departamento_id', 'idDepartamento');
+        return $this->hasMany(Liquidacion::class, 'idEmpleado');
     }
 }

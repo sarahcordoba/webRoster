@@ -3,79 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nomina;
-use App\Models\Empleado;
 use Illuminate\Http\Request;
 
 class NominaController extends Controller
 {
-    // Mostrar todas las nominas
+    // Mostrar todas las nóminas
     public function index()
     {
-        $nominas = Nomina::with('empleado')->get(); // Cargar nominas con empleados
-        return view('nominas.index', compact('nominas'));
+        $nominas = Nomina::all();
+        return response()->json($nominas);
     }
 
-    // Mostrar el formulario para crear una nueva nomina
-    public function create()
-    {
-        $empleados = Empleado::all(); // Obtener todos los empleados para la lista desplegable
-        return view('nominas.create', compact('empleados'));
-    }
-
-    // Guardar una nueva nomina
-    public function store(Request $request)
-    {
-        $request->validate([
-            'empleado_id' => 'required|integer|exists:empleado,idEmpleado',
-            'periodo' => 'required|string|max:50',
-            'fechaPago' => 'required|date',
-            'montoBruto' => 'required|numeric|min:0',
-            'montoNeto' => 'required|numeric|min:0',
-        ]);
-
-        Nomina::create($request->all());
-
-        return redirect()->route('nominas.index')->with('success', 'Nomina creada con éxito.');
-    }
-
-    // Mostrar una nomina específica
+    // Mostrar una nómina específica
     public function show($id)
     {
-        $nomina = Nomina::with('empleado')->findOrFail($id); // Cargar nomina con su empleado
-        return view('nominas.show', compact('nomina'));
-    }
-
-    // Mostrar el formulario para editar una nomina existente
-    public function edit($id)
-    {
         $nomina = Nomina::findOrFail($id);
-        $empleados = Empleado::all(); // Obtener empleados para la lista desplegable
-        return view('nominas.edit', compact('nomina', 'empleados'));
+        return response()->json($nomina);
     }
 
-    // Actualizar una nomina existente
+    // Crear una nueva nómina
+    public function store(Request $request)
+    {
+        $nomina = Nomina::create($request->all());
+        return response()->json($nomina, 201);
+    }
+
+    // Actualizar una nómina
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'empleado_id' => 'required|integer|exists:empleado,idEmpleado',
-            'periodo' => 'required|string|max:50',
-            'fechaPago' => 'required|date',
-            'montoBruto' => 'required|numeric|min:0',
-            'montoNeto' => 'required|numeric|min:0',
-        ]);
-
         $nomina = Nomina::findOrFail($id);
         $nomina->update($request->all());
-
-        return redirect()->route('nominas.index')->with('success', 'Nomina actualizada con éxito.');
+        return response()->json($nomina, 200);
     }
 
-    // Eliminar una nomina existente
+    // Eliminar una nómina
     public function destroy($id)
     {
         $nomina = Nomina::findOrFail($id);
         $nomina->delete();
-
-        return redirect()->route('nominas.index')->with('success', 'Nomina eliminada con éxito.');
+        return response()->json(null, 204);
     }
 }
