@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Liquidacion;
 use App\Models\Empleado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LiquidacionController extends Controller
 {
@@ -25,20 +26,30 @@ class LiquidacionController extends Controller
     // Guardar una nueva liquidación en la base de datos
     public function store(Request $request)
     {
-        $request->validate([
-            'idEmpleado' => 'required|exists:empleados,id',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
-            'estado' => 'required|string|max:15',
-            'salario' => 'required|numeric',
-            'total_deducciones' => 'nullable|numeric',
-            'total_comisiones' => 'nullable|numeric',
-            'total' => 'required|numeric',
-        ]);
+        try {
+            $request->validate([
+                'fecha_inicio' => 'required|date',
+                'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+                'estado' => 'required|string|max:15',
+                'salario' => 'required|numeric',
+                'total_deducciones' => 'nullable|numeric',
+                'total_comisiones' => 'nullable|numeric',
+                'total' => 'required|numeric',
+            ]);
 
-        Liquidacion::create($request->all());
-        return redirect()->route('liquidaciones.index')->with('success', 'Liquidación creada exitosamente.');
+            // Crear la liquidación
+            $liquidacion = Liquidacion::create($request->all());
+
+            // Retornar un JSON con éxito y los datos de la liquidación creada
+            // Retornar el ID de la liquidación recién creada como JSON
+            return response()->json(['id' => $liquidacion->id, 'message' => 'Liquidación creada exitosamente.']);
+        } catch (\Exception $e) {
+            // Log the error and return a JSON response
+            Log::error('Error in store method: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
 
     // Mostrar una liquidación específica
     public function show($id)
@@ -82,5 +93,10 @@ class LiquidacionController extends Controller
         $liquidacion->delete();
 
         return redirect()->route('liquidaciones.index')->with('success', 'Liquidación eliminada exitosamente.');
+    }
+
+    public function getLiquidaciones()
+    {
+        return response()->json(Liquidacion::all());
     }
 }

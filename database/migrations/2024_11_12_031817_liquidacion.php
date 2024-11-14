@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('liquidaciones', function (Blueprint $table) {
             $table->id(); // Clave primaria
-            $table->unsignedBigInteger('idEmpleado'); // Clave foránea del empleado
-            $table->foreign('idEmpleado')->references('id')->on('empleados')->onDelete('cascade');
         
             $table->date('fecha_inicio'); // Fecha de inicio del período de liquidación
             $table->date('fecha_fin'); // Fecha de fin del período de liquidación

@@ -92,3 +92,8 @@ body.dark-mode .mode-toggle {
         flex-direction: row;
     }
 }
+
+.titlebutton{
+    display: flex;
+    justify-content: space-between;
+}

@@ -15,6 +15,7 @@ class CreateNominasTable extends Migration
             $table->foreign('empleado_id')->references('idEmpleado')->on('empleados');
             $table->foreign('idLiquidacion')->references('id')->on('liquidaciones');
 
+            $table->string('metodopago', 15);
             $table->string('estado', 15);
 
             $table->decimal('salario_base', 10, 2);

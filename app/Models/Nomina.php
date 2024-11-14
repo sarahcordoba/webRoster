@@ -16,6 +16,7 @@ class Nomina extends Model
     protected $fillable = [
         'empleado_id',
         'idLiquidacion',
+        'metodopago',
         'estado',
         'salario_base',
         'total_deducciones',
