@@ -9,7 +9,7 @@
     --color-sb-dark: #2d2d2d;
     --color-text-light: #333; /* texto normal */
     --color-text-dark: #f9fafc;
-    --color-primary-light: #ff94ac; 
+    --color-primary-light: #ff94ac; /*ff7b9d*/
     --color-primary-dark: #ff7b9d;
     --color-step: #007bff; /* color cuando selecciono un step del form */
     --color-card-header: #343a40; /* header form */
@@ -20,7 +20,7 @@
 }
 
 * {
-    font-family: "Host Grotesk", 'Times New Roman', Times, serif;
+    font-family: "Host Grotesk", 'Times New Roman', Times, serif !important;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -42,10 +42,49 @@
     z-index: 10;
 }
 
+.sidebar h2{
+    margin-bottom: 0;
+}
+
 .main-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+
+/* //botones esos */
+.btn-primary{
+    background-color: var(--color-primary-light) !important;
+    color: var(--color-text-dark) !important;
+    border: none !important;
+}
+
+.dark-mode .btn-primary{
+    background-color: var(--color-primary-dark) !important;
+    color: var(--color-text-light) !important;
+    border: none !important;
+}
+
+.btn-outline-primary{
+    color: var(--color-primary-light) !important;
+    border-color: var(--color-primary-light) !important;
+}
+
+.dark-mode .btn-outline-primary{
+    color: var(--color-primary-dark) !important;
+    border-color: var(--color-primary-dark) !important;
+}
+
+.btn-primary:hover, .btn-outline-primary:hover{
+    background-color: #e3879b !important;
+    color: var(--color-bg-light) !important;
+    border-color:  #e3879b !important;
+}
+
+.dark-mode .btn-primary:hover, .dark-mode .btn-outline-primary:hover{
+    background-color: #db6d89 !important;
+    color: var(--color-text-dark) !important;
+    border-color:  #db6d89 !important;
 }
 
 /* modo claro */

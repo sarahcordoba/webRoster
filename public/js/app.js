@@ -36,3 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // agregar el evento de clic al botón de modo oscuro
 // document.getElementById('modeToggle').addEventListener('click', toggleMode);
+
+// mensajes
+function showToast(message) {
+    const toastMessage = document.getElementById('toastMessage');
+    toastMessage.textContent = message;
+    
+    const toastElement = new bootstrap.Toast(document.getElementById('liveToast'));
+    toastElement.show();
+}

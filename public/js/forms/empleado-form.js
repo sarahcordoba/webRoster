@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const contractEndDate = new Date(contractEndDateInput.value);
 
         if (contractEndDate < hiringDate) {
-            alert('La fecha de fin de contrato debe ser posterior a la fecha de contratación.');
+            showToast('La fecha de fin de contrato debe ser posterior a la fecha de contratación.');
             contractEndDateInput.value = ''; // Clear the invalid date
         }
     }
@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     const idNumberInput = document.getElementById('id_number');
     const phoneInput = document.getElementById('phone');
+    const holidayInput = document.getElementById('holiday');
+    const numCuentaInput = document.getElementById('numero_cuenta');
 
     // Permitir solo números y hasta 15 caracteres para el número de identificación
     idNumberInput.addEventListener('input', () => {
@@ -74,6 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
     phoneInput.addEventListener('input', () => {
         phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '').slice(0, 15);
     });
+
+    holidayInput.addEventListener('input', () => {
+        holidayInput.value = holidayInput.value.replace(/[^0-9]/g, '').slice(0, 3);
+    });
+
+    numCuentaInput.addEventListener('input', () => {
+        numCuentaInput.value = numCuentaInput.value.replace(/[^0-9]/g, '').slice(0, 4);
+    });
+
+
 });
 
 //para cargar cosas
@@ -100,26 +112,6 @@ async function cargarMunicipios() {
 }
 
 
-// async function cargarTiposC() {
-//     try {
-//         // Cargar el archivo JSON
-//         const response = await fetch('/data/tipo_cotizacion.json');
-//         const data = await response.json(); // Parsear el JSON
-
-//         // Obtener el elemento select
-//         const selectElement = document.getElementById("worker_type");
-
-//         // Agregar las opciones dinámicamente
-//         data.forEach(item => {
-//             const option = document.createElement("option");
-//             option.value = item.id;
-//             option.textContent = item.description;
-//             selectElement.appendChild(option);
-//         });
-//     } catch (error) {
-//         console.error("Error al cargar el archivo JSON: ", error);
-//     }
-// }
 
 async function cargarTiposC() {
     try {
@@ -131,8 +123,7 @@ async function cargarTiposC() {
         const selectElement = document.getElementById("worker_type");
         const salarioInput = document.getElementById("salary"); // Asegúrate de que este sea el id de tu campo de salario
 
-        // Arreglo de tipos de cotizantes con salario 0
-        const tiposConSalarioCero = [12, 19, 21, 42]; // IDs de los tipos con salario 0
+        const tiposConSalarioCero = [12, 19, 21, 42]; 
 
         // Agregar las opciones dinámicamente al select
         data.forEach(item => {
@@ -158,7 +149,7 @@ function verificarSalario(tiposConSalarioCero, selectElement, salarioInput) {
 
     // Verificamos si el tipo de cotizante tiene salario 0 y el salario no es 0
     if (tiposConSalarioCero.includes(tipoCotizanteId) && salario !== 0) {
-        alert('¡Error! Los cotizantes de este tipo deben tener un salario de 0.');
+        showToast('¡Error! Los cotizantes de este tipo deben tener un salario de 0.');
         selectElement.value = ''; // Restablecer a un valor por defecto, por ejemplo, vacío
         // Si deseas que se vuelva a 'Dependiente', puedes buscar el id correspondiente y asignarlo
         const dependienteOption = Array.from(selectElement.options).find(option => option.textContent.includes('Dependiente'));
@@ -170,9 +161,21 @@ function verificarSalario(tiposConSalarioCero, selectElement, salarioInput) {
 
 // Llamar a la función para cargar los tipos de cotizantes cuando cargue la página
 document.addEventListener('DOMContentLoaded', cargarTiposC);
-
-
-
 // Llamar a la función para cargar los municipios al cargar la página
 cargarMunicipios();
 // cargarTiposC();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const paymentMethodSelect = document.getElementById('payment_method');
+    const transferenciaInfo = document.getElementById('transferencia_info');
+    paymentMethodSelect.addEventListener('change', function () {
+        if (paymentMethodSelect.value === 'transferencia_bancaria') {
+            transferenciaInfo.style.display = 'block';
+
+        } else {
+            transferenciaInfo.style.display = 'none';
+        }
+    });
+});
+
+
