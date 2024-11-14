@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="container my-5">
-  <h1 class="titulito">Liquidaciones</h1>
+  <h1 class="titulito">Colilla de pago</h1>
   <div class="titlebutton">
     <p>Calcula los devengados y deducciones de las personas que integran tu equipo de trabajo</p>
     <!-- Botón para abrir el modal -->

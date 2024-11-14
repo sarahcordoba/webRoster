@@ -14,8 +14,8 @@ class CreateDeduccionesNominaTable extends Migration
             $table->decimal('monto', 10, 2); // Monto específico de la deducción
 
             $table->primary(['nomina_id', 'deduccion_id']);
-            $table->foreign('nomina_id')->references('id')->on('nomina')->onDelete('cascade');
-            $table->foreign('deduccion_id')->references('id')->on('deduccion')->onDelete('cascade');
+            $table->foreign('nomina_id')->references('id')->on('nominas')->onDelete('cascade');
+            $table->foreign('deduccion_id')->references('id')->on('deducciones')->onDelete('cascade');
         });
     }
 

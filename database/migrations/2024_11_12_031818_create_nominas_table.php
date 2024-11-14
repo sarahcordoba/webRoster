@@ -10,9 +10,9 @@ class CreateNominasTable extends Migration
     {
         Schema::create('nominas', function (Blueprint $table) {
             $table->id();
-            $table->string('empleado_id', 15);
-            $table->string('idLiquidacion', 15);
-            $table->foreign('empleado_id')->references('idEmpleado')->on('empleados');
+            $table->unsignedBigInteger('empleado_id');
+            $table->unsignedBigInteger('idLiquidacion');
+            $table->foreign('empleado_id')->references('id')->on('empleados');
             $table->foreign('idLiquidacion')->references('id')->on('liquidaciones');
 
             $table->string('metodopago', 15);
