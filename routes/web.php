@@ -10,9 +10,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiquidacionController;
 use App\Models\Comision;
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+ Route::get('/login', function () {
+     return view('login');
+ });
 
 Route::get('/', [HomeController::class, 'index']);
 

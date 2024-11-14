@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Liquidacion;
 use App\Models\Empleado;
+use App\Models\Nomina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class LiquidacionController extends Controller
 {
@@ -55,8 +57,11 @@ class LiquidacionController extends Controller
     public function show($id)
     {
         $liquidacion = Liquidacion::findOrFail($id);
-        return view('liquidaciones.show', compact('liquidacion'));
+        $nominas = Nomina::where('idLiquidacion', $id)->get(); // Obtiene las nóminas relacionadas con esta liquidación
+        $empleados = Empleado::where('idEmpleador', Auth::id())->get(); // Filtra empleados asociados al usuario logueado
+        return view('liquidaciones.show', compact('liquidacion', 'nominas', 'empleados'));
     }
+
 
     // Mostrar el formulario para editar una liquidación
     public function edit($id)

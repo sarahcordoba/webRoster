@@ -29,7 +29,7 @@
                 <tbody>
                     @foreach($empleados as $empleado)
                     <tr>
-                        <td>{{ $empleado->nombre }}</td>
+                        <td>{{ $empleado->primer_nombre }} {{ $empleado->segundo_nombre }} {{ $empleado->primer_apellido }} {{ $empleado->segundo }}</td>
                         <td>{{ $empleado->cargo }}</td>
                         <td>{{ $empleado->id }}</td>
                         <td>{{ number_format($empleado->salario, 2) }}</td>
