@@ -27,6 +27,36 @@
     --color-form-border: #444;
     /* borde del form oscuro */
 }
+ 
+/* Colores para el modo oscuro */
+.dark-mode {
+    --color-bg-dark: #333333; /* Fondo oscuro */
+    --color-text-dark: #ffffff; /* Texto blanco */
+}
+
+/* Tabla en modo claro */
+.table {
+    background-color: var(--color-bg-light) !important;
+    color: var(--color-text-light) !important;
+}
+
+/* Tabla en modo oscuro */
+.dark-mode .table {
+    background-color: var(--color-bg-dark) !important;
+    color: var(--color-text-dark) !important;
+}
+
+/* Otros estilos adicionales */
+.table th, .table td {
+    background-color: var(--color-bg-light) !important;
+    color: var(--color-text-light) !important;
+}
+
+/* En modo oscuro */
+.dark-mode .table th, .dark-mode .table td {
+    background-color: var(--color-bg-dark) !important;
+    color: var(--color-text-dark) !important;
+}
 
 * {
     font-family: "Host Grotesk", 'Times New Roman', Times, serif !important;

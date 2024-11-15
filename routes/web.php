@@ -38,13 +38,9 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboardb', function () {
-    return view('dashboardb');
-})->middleware(['auth', 'verified'])->name('dashboardb');
+// Route::get('/dashboardb', function () {
+//     return view('dashboardb');
+// })->middleware(['auth', 'verified'])->name('dashboardb');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

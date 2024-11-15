@@ -68,8 +68,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="requir" for="id">Número de identificación</label>
-                            <input type="text" id="id" name="id" class="form-control" required>
+                            <label class="requir" for="numero_identificacion">Número de identificación</label>
+                            <input type="text" id="numero_identificacion" name="numero_identificacion" class="form-control" required>
                         </div>
                         {{-- </div> --}}
                     </div>
@@ -370,17 +370,12 @@
                             <div class="form-group"> <label class="requir" for="fondo_pensiones">Fondo de pensiones
                                 </label> <select id="fondo_pensiones" name="fondo_pensiones" class="form-control"
                                     required>
-                                    <option value="administrativa">Administrativa</option>
-                                    <option value="operativa">Operativa</option>
-                                    <option value="ventas">Ventas</option>
                                 </select>
                             </div>
                             <div class="form-group"> <label class="requir" for="fondo_cesantias">Caja de compensación
                                 </label> <select id="fondo_cesantias" name="fondo_cesantias" class="form-control"
                                     required>
-                                    <option value="administrativa">Administrativa</option>
-                                    <option value="operativa">Operativa</option>
-                                    <option value="ventas">Ventas</option>
+        
                                 </select>
                             </div>
                         </div>

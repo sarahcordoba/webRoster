@@ -48,12 +48,12 @@ function updateButtons() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     updateSteps();
     document.getElementById('form' + currentStep).style.display = 'block';
     document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
 
-    document.getElementById('empleado_form').addEventListener('submit', function(event) {
+    document.getElementById('empleado_form').addEventListener('submit', function (event) {
         alert('Formulario enviado correctamente.');
     });
 
@@ -82,7 +82,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const idNumberInput = document.getElementById('id');
+    // Llamar a las funciones necesarias al cargar la página
+    cargarTiposC();
+    cargarMunicipios();
+    cargarEPS();
+    cargarCajasComp();
+    cargarPens();
+    cargarCesantias();
+
+    const idNumberInput = document.getElementById('numero_identificacion');
     const phoneInput = document.getElementById('celular');
     const holidayInput = document.getElementById('dias_vacaciones');
     const numCuentaInput = document.getElementById('numero_cuenta');
@@ -180,7 +188,7 @@ async function cargarEPS() {
         data.forEach(item => {
             const option = document.createElement("option");
             // Mostrar el municipio y departamento concatenados
-            option.value = item.codigo;
+            option.value = item.nombre;
             option.textContent = `${item.nombre}`;
             selectElement.appendChild(option);
         });
@@ -202,7 +210,7 @@ async function cargarCajasComp() {
         data.forEach(item => {
             const option = document.createElement("option");
             // Mostrar el municipio y departamento concatenados
-            option.value = item.codigo;
+            option.value = item.nombre;
             option.textContent = `${item.nombre}`;
             selectElement.appendChild(option);
         });
@@ -211,7 +219,49 @@ async function cargarCajasComp() {
     }
 }
 
+async function cargarPens() {
+    try {
+        // Cargar el archivo JSON
+        const response = await fetch('/data/pensiones.json');
+        const data = await response.json(); // Parsear el JSON
 
+        // Obtener el elemento select
+        const selectElement = document.getElementById("fondo_pensiones");
+
+        // Agregar las opciones dinámicamente
+        data.forEach(item => {
+            const option = document.createElement("option");
+            // Mostrar el municipio y departamento concatenados
+            option.value = item.nombre;
+            option.textContent = `${item.nombre}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON: ", error);
+    }
+}
+
+async function cargarCesantias() {
+    try {
+        // Cargar el archivo JSON
+        const response = await fetch('/data/cesantias.json');
+        const data = await response.json(); // Parsear el JSON
+
+        // Obtener el elemento select
+        const selectElement = document.getElementById("fondo_cesantias");
+
+        // Agregar las opciones dinámicamente
+        data.forEach(item => {
+            const option = document.createElement("option");
+            // Mostrar el municipio y departamento concatenados
+            option.value = item.nombre;
+            option.textContent = `${item.nombre}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON: ", error);
+    }
+}
 
 function verificarSalario(tiposConSalarioCero, tipoCotizanteId, salarioInput) {
     const salario = parseFloat(salarioInput.value); // Valor del salario ingresado
@@ -220,34 +270,45 @@ function verificarSalario(tiposConSalarioCero, tipoCotizanteId, salarioInput) {
     if (tiposConSalarioCero.includes(tipoCotizanteId) && salario !== 0) {
         showToast('¡Error! Los cotizantes de este tipo deben tener un salario de 0.');
         selectElement.value = ''; // Restablecer a un valor por defecto, por ejemplo, vacío
-        // Si deseas que se vuelva a 'Dependiente', puedes buscar el id correspondiente y asignarlo
-        // const dependienteOption = Array.from(selectElement.options).find(option => option.textContent.includes('Dependiente'));
-        // if (dependienteOption) {
-        //     selectElement.value = dependienteOption.value;
-        // }
+
     }
 }
-
-// Llamar a la función para cargar los tipos de cotizantes cuando cargue la página
-document.addEventListener('DOMContentLoaded', cargarTiposC);
-// Llamar a la función para cargar los municipios al cargar la página
-cargarMunicipios();
-cargarEPS();
-cargarCajasComp();
 
 document.addEventListener('DOMContentLoaded', function () {
     const paymentMethodSelect = document.getElementById('metodo_pago');
     const transferenciaInfo = document.getElementById('transferencia_info');
-    paymentMethodSelect.addEventListener('change', function () {
-        console.log(paymentMethodSelect.value)
-        if (paymentMethodSelect.value === 'transferencia_bancaria') {
-            transferenciaInfo.style.display = 'block';
+    const bancoSelect = document.getElementById('banco');
+    const numeroCuentaInput = document.getElementById('numero_cuenta');
+    const tipoCuentaSelect = document.getElementById('tipo_cuenta');
+    
+    // Función para actualizar los campos de pago
+    const actualizarCamposPago = function () {
+        console.log(paymentMethodSelect.value);
 
+        if (paymentMethodSelect.value === 'pago_efectivo') {
+            // Si es "pago_efectivo", ocultar los campos de transferencia bancaria y vaciarlos
+            transferenciaInfo.style.display = 'none';
+            
+            // Vaciar los campos de transferencia bancaria
+            bancoSelect.value = null;
+            numeroCuentaInput.value = '';
+            tipoCuentaSelect.value = null;
+        } else if (paymentMethodSelect.value === 'transferencia_bancaria') {
+            // Si es "transferencia_bancaria", mostrar los campos de transferencia bancaria
+            transferenciaInfo.style.display = 'block';
         } else {
+            // Si no es ninguno de los anteriores, ocultar los campos de transferencia
             transferenciaInfo.style.display = 'none';
         }
-    });
+    };
+    
+    // Llamar a la función cuando la página cargue para verificar el estado inicial
+    actualizarCamposPago();
+
+    // Agregar el evento de cambio para actualizar los campos cuando se seleccione otro método de pago
+    paymentMethodSelect.addEventListener('change', actualizarCamposPago);
 });
+
 
 
 

@@ -9,15 +9,15 @@ class CreateEmpleadosTable extends Migration
     public function up()
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id()->primary(); //numero de identificación
-            $table->unsignedBigInteger('idEmpleador'); //numero de identificación
-            $table->foreign('idEmpleador')->references('id')->on('users');
-
+            $table->id();
+            // $table->unsignedBigInteger('idEmpleador'); //numero de identificación
+            // $table->foreign('idEmpleador')->references('id')->on('users')->onDelete('cascade');
             $table->string('primer_nombre', 50);
             $table->string('segundo_nombre', 50)->nullable();
             $table->string('primer_apellido', 50);
-            $table->string('segundo_apellido',50)->nullable();
+            $table->string('segundo_apellido', 50)->nullable();
             $table->string('tipo_identificacion', 50);
+            $table->string('numero_identificacion', 10)->unique();
             $table->string('municipio', 100);
             $table->string('direccion', 500);
             $table->string('celular', 15)->nullable();
@@ -37,16 +37,15 @@ class CreateEmpleadosTable extends Migration
             $table->string('cargo', 255);
             $table->integer('dias_vacaciones');
             $table->string('area', 255);
-            //$table->integer('departamento_id')->unsigned();
             $table->string('metodo_pago', 255);
-            $table->string('banco', 255)->nullable(); 
-            $table->string('numero_cuenta', 24)->nullable(); 
-            $table->string('tipo_cuenta')->nullable(); 
+            $table->string('banco', 255)->nullable();
+            $table->string('numero_cuenta', 24)->nullable();
+            $table->string('tipo_cuenta')->nullable();
             $table->string('eps', 255);
             $table->string('caja_compensacion', 255);
             $table->string('fondo_pensiones', 255);
             $table->string('fondo_cesantias', 255);
-            //$table->foreign('departamento_id')->references('idDepartamento')->on('departamentos');
+            $table->timestamps(); 
         });
     }
 
