@@ -18,8 +18,8 @@ class ComisionNominaController extends Controller
     public function show($nomina_id, $comision_id)
     {
         $comisionNomina = ComisionNomina::where('nomina_id', $nomina_id)
-                                        ->where('comision_id', $comision_id)
-                                        ->firstOrFail();
+            ->where('comision_id', $comision_id)
+            ->firstOrFail();
         return response()->json($comisionNomina);
     }
 
@@ -34,8 +34,8 @@ class ComisionNominaController extends Controller
     public function update(Request $request, $nomina_id, $comision_id)
     {
         $comisionNomina = ComisionNomina::where('nomina_id', $nomina_id)
-                                        ->where('comision_id', $comision_id)
-                                        ->firstOrFail();
+            ->where('comision_id', $comision_id)
+            ->firstOrFail();
         $comisionNomina->update($request->all());
         return response()->json($comisionNomina, 200);
     }
@@ -43,10 +43,15 @@ class ComisionNominaController extends Controller
     // Eliminar una comisión asignada a una nómina
     public function destroy($nomina_id, $comision_id)
     {
-        $comisionNomina = ComisionNomina::where('nomina_id', $nomina_id)
-                                        ->where('comision_id', $comision_id)
-                                        ->firstOrFail();
-        $comisionNomina->delete();
-        return response()->json(null, 204);
+        // Eliminar basado en las claves compuestas
+        ComisionNomina::where('nomina_id', $nomina_id)
+                      ->where('comision_id', $comision_id)
+                      ->delete();
+    
+        // Redireccionar a la página de edición de la nómina
+        return redirect()->route('nominas.edit', ['id' => $nomina_id])
+                         ->with('success', 'Comisión eliminada exitosamente.');
     }
+    
+    
 }

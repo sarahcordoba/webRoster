@@ -79,7 +79,7 @@
                     <td>${{ number_format($nomina->total, 2) }}</td>
                     <td>
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Ver Detalles</a>
-                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Editar</a>
+                        <a href="{{ route('nominas.edit', $nomina->id) }}" class="btn btn-secondary">Editar</a>
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Liquidar</a>
                         <form action="{{ route('nominas.destroy', $nomina->id) }}" method="POST">
                             @csrf

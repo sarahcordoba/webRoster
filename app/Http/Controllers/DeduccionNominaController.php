@@ -43,10 +43,13 @@ class DeduccionNominaController extends Controller
     // Eliminar una deducción asignada a una nómina
     public function destroy($nomina_id, $deduccion_id)
     {
-        $deduccionNomina = DeduccionNomina::where('nomina_id', $nomina_id)
-                                          ->where('deduccion_id', $deduccion_id)
-                                          ->firstOrFail();
-        $deduccionNomina->delete();
-        return response()->json(null, 204);
+        // Eliminar basado en las claves compuestas
+        DeduccionNomina::where('nomina_id', $nomina_id)
+                      ->where('deduccion_id', $deduccion_id)
+                      ->delete();
+    
+        // Redireccionar a la página de edición de la nómina
+        return redirect()->route('nominas.edit', ['id' => $nomina_id])
+                         ->with('success', 'Comisión eliminada exitosamente.');
     }
 }

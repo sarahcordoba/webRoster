@@ -7,8 +7,15 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\DeduccionController;
 use App\Http\Controllers\ComisionController;
+use App\Http\Controllers\ComisionNominaController;
+use App\Http\Controllers\DeduccionNominaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiquidacionController;
 use App\Models\Comision;
+use App\Models\ComisionNomina;
+use App\Models\DeduccionNomina;
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::resource('departamentos', DepartamentoController::class);
 Route::resource('empleados', EmpleadoController::class);
@@ -16,17 +23,28 @@ Route::resource('nominas', NominaController::class);
 Route::resource('deducciones', DeduccionController::class);
 Route::resource('bonificaciones', ComisionController::class);
 Route::resource('liquidaciones', LiquidacionController::class);
+//Route::resource('comisionnomina', ComisionNominaController::class);
+//Route::resource('deduccionnomina', DeduccionNominaController::class);
 //Route::get('/liquidaciones/{id}', [LiquidacionController::class, 'show'])->name('liquidaciones.show');
 //Route::get('/nominas/{id}', [NominaController::class, 'show'])->name('nominas.show');
 
 use App\Models\Nomina;
 
-Route::get('edit/nominas/{id}', function ($id) {
-    $nomina = Nomina::findOrFail($id);
-    return view('nominas.edit', compact('nomina'));
-})->name('nominas.edit');
+// Route::get('edit/nominas/{id}', function ($id) {
+//     $nomina = Nomina::findOrFail($id);
+//     return view('nominas.edit', compact('nomina'));
+// })->name('nominas.edit');
+
+Route::get('/edit/nominas/{id}', [NominaController::class, 'edit'])->name('nominas.edit');
+Route::get('/liquidar/nominas/{id}', [NominaController::class, 'liquidar'])->name('nominas.liquidar');
+
+
+
 
 Route::delete('api/delete/liquidacion/{id}', [LiquidacionController::class, 'destroy']);
+Route::delete('api/delete/deduccionnomina/{nomina_id}/{deduccion_id}', [DeduccionNominaController::class, 'destroy'])->name('deduccionnomina.delete');
+Route::delete('api/delete/comisionnomina/{nomina_id}/{comision_id}', [ComisionNominaController::class, 'destroy'])->name('comisionnomina.delete');
+
 
 Route::post('api/add/liquidacion', [LiquidacionController::class, 'store']);
 Route::get('api/getall/liquidaciones', [LiquidacionController::class, 'getLiquidaciones']);

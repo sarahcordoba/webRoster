@@ -61,25 +61,55 @@
                         </li>
                         <li class="list-group-item d-flex flex-column">
                             <strong>Porcentaje</strong>
-                            @if($comisiona->comision->esporcentaje)
-                            {{ $comisiona->comision->monto }}%
-                            @else
-                            N/A
-                            @endif
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="isPercentage-{{ $comisiona->id }}"
+                                    name="esporcentaje[{{ $comisiona->id }}]"
+                                    value="1"
+                                    {{ $comisiona->esporcentaje ? 'checked' : '' }}
+                                    @if(in_array($comisiona->comision_id, [1, 2, 3])) disabled @endif>
+                                <label class="form-check-label" for="isPercentage-{{ $comisiona->id }}">
+                                    ¿Es porcentaje?
+                                </label>
+                            </div>
+
+                            <input
+                                type="number"
+                                step="0.01"
+                                class="form-control mt-2"
+                                id="percentageInput-{{ $comisiona->id }}"
+                                name="porcentaje[{{ $comisiona->id }}]"
+                                value="{{ $comisiona->esporcentaje ? $comisiona->monto : '' }}"
+                                placeholder="Porcentaje (%)"
+                                @if(!$comisiona->esporcentaje || in_array($comisiona->comision_id, [1, 2, 3])) disabled @endif>
                         </li>
+
                         <li class="list-group-item d-flex flex-column">
                             <strong>Monto</strong>
-                            @if($comisiona->comision->esporcentaje)
-                            {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($comisiona->comision->monto / 100), 2) }}
-                            @else
-                            {{-- Muestra el monto directamente si no es un porcentaje --}}
-                            ${{ number_format($comisiona->comision->monto, 2) }}
-                            @endif
+                            <input
+                                type="number"
+                                step="0.01"
+                                class="form-control mt-2"
+                                id="amountInput-{{ $comisiona->id }}"
+                                name="monto[{{ $comisiona->id }}]"
+                                value="{{ !$comisiona->esporcentaje ? $comisiona->monto : '' }}"
+                                placeholder="Monto ($)"
+                                @if($comisiona->esporcentaje || in_array($comisiona->comision_id, [1])) disabled @endif>
                         </li>
+
                         <li class="list-group-item d-flex flex-column">
-                            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Eliminar</a>
-                            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary"></a>
+                            <form id="delete-comision-{{ $comisiona->comision_id }}"
+                                action="{{ route('comisionnomina.delete', [$comisiona->nomina_id, $comisiona->comision_id]) }}"
+                                method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('¿Estás seguro de que deseas eliminar esta comisión?');">
+                                    X
+                                </button>
+                            </form>
+
                         </li>
                     </ul>
                     @endforeach
@@ -101,21 +131,53 @@
                         </li>
                         <li class="list-group-item d-flex flex-column">
                             <strong>Porcentaje</strong>
-                            @if($deducciona->deduccion->esporcentaje)
-                            {{ $deducciona->deduccion->monto }}%
-                            @else
-                            N/A
-                            @endif
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="isPercentage-{{ $deducciona->id }}"
+                                    name="esporcentaje[{{ $deducciona->id }}]"
+                                    value="1"
+                                    {{ $deducciona->esporcentaje ? 'checked' : '' }}
+                                    @if(in_array($deducciona->deduccion_id, [1, 2, 3])) disabled @endif>
+                                <label class="form-check-label" for="isPercentage-{{ $deducciona->id }}">
+                                    ¿Es porcentaje?
+                                </label>
+                            </div>
+
+                            <input
+                                type="number"
+                                step="0.01"
+                                class="form-control mt-2"
+                                id="percentageInput-{{ $deducciona->id }}"
+                                name="porcentaje[{{ $deducciona->id }}]"
+                                value="{{ $deducciona->esporcentaje ? $deducciona->monto : '' }}"
+                                placeholder="Porcentaje (%)"
+                                @if(!$deducciona->esporcentaje || in_array($deducciona->deduccion_id, [1, 2, 3])) disabled @endif>
                         </li>
+
                         <li class="list-group-item d-flex flex-column">
                             <strong>Monto</strong>
-                            @if($deducciona->deduccion->esporcentaje)
-                            {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($deducciona->deduccion->monto / 100), 2) }}
-                            @else
-                            {{-- Muestra el monto directamente si no es un porcentaje --}}
-                            ${{ number_format($deducciona->deduccion->monto, 2) }}
-                            @endif
+                            <input
+                                type="number"
+                                step="0.01"
+                                class="form-control mt-2"
+                                id="amountInput-{{ $deducciona->id }}"
+                                name="monto[{{ $deducciona->id }}]"
+                                value="{{ !$deducciona->esporcentaje ? $deducciona->monto : '' }}"
+                                placeholder="Monto ($)"
+                                @if($deducciona->esporcentaje || in_array($deducciona->deduccion_id, [1, 2, 3])) disabled @endif>
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <form id="delete-comision-{{ $deducciona->deduccion_id }}"
+                                action="{{ route('deduccionnomina.delete', [$deducciona->nomina_id, $deducciona->deduccion_id]) }}"
+                                method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('¿Estás seguro de que deseas eliminar esta deduccion?');">
+                                    X
+                                </button>
+                            </form>
                         </li>
                     </ul>
                     @endforeach
@@ -128,8 +190,9 @@
 
         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Cancelar</a>
         <div style="display:flex;  gap: .5rem;">
-            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-primary">Editar</a>
-            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-primary">Liquidar</a>
+            <a href="{{ route('nominas.edit', $nomina->id) }}" class="btn btn-primary">Editar</a>
+
+            <a href="{{ route('nominas.liquidar', $nomina->id) }}" class="btn btn-primary">Liquidar</a>
         </div>
     </div>
 

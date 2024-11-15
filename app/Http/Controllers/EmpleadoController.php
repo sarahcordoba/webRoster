@@ -11,7 +11,7 @@ class EmpleadoController extends Controller
     // Mostrar todos los empleados
     public function index()
     {
-        $empleados = Empleado::all(); // Cargar empleados con departamentos
+        $empleados = Empleado::all();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -26,13 +26,13 @@ class EmpleadoController extends Controller
     {
 
         dd($request->all());
-        
+
         $request->validate([
-            'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
+            // 'idEmpleador' => 'required|exists:users,id',
             'primer_nombre' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'tipo_identificacion' => 'required|string|max:50',
-            'numero_identificacion' => 'required|string|unique:empleados,numero_identificacion',
+            'numero_identificacion' => 'required|string|max:10|unique:empleados,numero_identificacion',
             'municipio' => 'required|string|max:100',
             'direccion' => 'required|string|max:500',
             'celular' => 'nullable|string|max:15',
@@ -46,7 +46,6 @@ class EmpleadoController extends Controller
             'cargo' => 'required|string|max:255',
             'dias_vacaciones' => 'nullable|integer',
             'area' => 'required|string|max:255',
-            // 'departamento_id' => 'required|integer|exists:departamentos,idDepartamento', // Asegúrate de que este campo sea válido
             'metodo_pago' => 'required|string|max:255',
             'banco' => 'nullable|string|max:255',
             'numero_cuenta' => 'nullable|string|max:24',
@@ -80,11 +79,11 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
+            // 'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
             'primer_nombre' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'tipo_identificacion' => 'required|string|max:50',
-            'numero_identificacion' => 'required|string|unique:empleados,numero_identificacion',
+            'numero_identificacion' => 'required|string|max:10|unique:empleados,numero_identificacion',
             'municipio' => 'required|string|max:100',
             'direccion' => 'required|string|max:500',
             'celular' => 'nullable|string|max:15',
@@ -98,7 +97,6 @@ class EmpleadoController extends Controller
             'cargo' => 'required|string|max:255',
             'dias_vacaciones' => 'nullable|integer',
             'area' => 'required|string|max:255',
-            // 'departamento_id' => 'required|integer|exists:departamentos,idDepartamento', // Asegúrate de que este campo sea válido
             'metodo_pago' => 'required|string|max:255',
             'banco' => 'nullable|string|max:255',
             'numero_cuenta' => 'nullable|string|max:24',
