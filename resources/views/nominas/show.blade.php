@@ -61,8 +61,8 @@
                         </li>
                         <li class="list-group-item d-flex flex-column">
                             <strong>Porcentaje</strong>
-                            @if($comisiona->comision->esporcentaje)
-                            {{ $comisiona->comision->monto }}%
+                            @if($comisiona->esporcentaje)
+                            {{ $comisiona->monto }}%
                             @else
                             N/A
                             @endif
@@ -71,10 +71,10 @@
                             <strong>Monto</strong>
                             @if($comisiona->comision->esporcentaje)
                             {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($comisiona->comision->monto / 100), 2) }}
+                            ${{ number_format($nomina->empleado->salario * ($comisiona->monto / 100), 2) }}
                             @else
                             {{-- Muestra el monto directamente si no es un porcentaje --}}
-                            ${{ number_format($comisiona->comision->monto, 2) }}
+                            ${{ number_format($comisiona->monto, 2) }}
                             @endif
                         </li>
                     </ul>
@@ -97,20 +97,20 @@
                         </li>
                         <li class="list-group-item d-flex flex-column">
                             <strong>Porcentaje</strong>
-                            @if($deducciona->deduccion->esporcentaje)
-                            {{ $deducciona->deduccion->monto }}%
+                            @if($deducciona->esporcentaje)
+                            {{ $deducciona->monto }}%
                             @else
                             N/A
                             @endif
                         </li>
                         <li class="list-group-item d-flex flex-column">
                             <strong>Monto</strong>
-                            @if($deducciona->deduccion->esporcentaje)
+                            @if($deducciona->esporcentaje)
                             {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($deducciona->deduccion->monto / 100), 2) }}
+                            ${{ number_format($nomina->empleado->salario * ($deducciona->monto / 100), 2) }}
                             @else
                             {{-- Muestra el monto directamente si no es un porcentaje --}}
-                            ${{ number_format($deducciona->deduccion->monto, 2) }}
+                            ${{ number_format($deducciona->monto, 2) }}
                             @endif
                         </li>
                     </ul>

@@ -35,7 +35,14 @@
         <td>{{ number_format($liquidacion->total_deducciones, 2) }}</td>
         <td>{{ number_format($liquidacion->total_comisiones, 2) }}</td>
         <td>{{ number_format($liquidacion->total, 2) }}</td>
-        <td><a href="{{ route('liquidaciones.show', $liquidacion->id) }}" class="btn btn-secondary">Ir a Liquidar</a></td>
+        <td>
+          <a href="{{ route('liquidaciones.show', $liquidacion->id) }}" class="btn btn-secondary">Ir a Liquidar</a>
+          <form action="{{ route('liquidaciones.destroy', $liquidacion->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </td>
       </tr>
       @endforeach
     </tbody>
@@ -158,7 +165,7 @@
         const modal = bootstrap.Modal.getInstance(document.getElementById('liquidacionModal'));
         modal.hide();
         // Redirigir a la página de detalles de la liquidación creada
-        window.location.href = `/liquidacion/${data.id}`;
+        window.location.href = `/liquidaciones/${data.id}`;
       })
       .catch(error => {
         console.error('Error al crear la liquidación:', error);

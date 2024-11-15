@@ -81,7 +81,11 @@
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Ver Detalles</a>
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Editar</a>
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Liquidar</a>
-                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Eliminar</a>
+                        <form action="{{ route('nominas.destroy', $nomina->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -157,28 +161,28 @@
             //console.log(selectedEmployees);
             selectedEmployees.forEach((employee) => {
                 fetch('/api/add/nomina', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({
-                        empleado_id: employee,
-                        idLiquidacion: idLiquidacion
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            empleado_id: employee,
+                            idLiquidacion: idLiquidacion
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Nominas creadas:", data);
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('liquidacionModal'));
-                    modal.hide();
-                    // Aquí puedes agregar código para actualizar la tabla o la vista después de la creación
-                })
-                .catch(error => console.error("Error al crear las nóminas:", error));
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Nominas creadas:", data);
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('liquidacionModal'));
+                        modal.hide();
+                        location.reload();
+
+                        // Aquí puedes agregar código para actualizar la tabla o la vista después de la creación
+                    })
+                    .catch(error => console.error("Error al crear las nóminas:", error));
             });
-            
+
         }
     </script>
     @endsection
-
-    <script type="text/javascript" src="{{ asset('js/forms/empleado-form.js') }}"></script>

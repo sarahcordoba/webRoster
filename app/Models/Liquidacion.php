@@ -23,10 +23,4 @@ class Liquidacion extends Model
         'total_comisiones',
         'total',
     ];
-
-    // Relación con el modelo Empleado
-    public function empleado()
-    {
-        return $this->belongsTo(Empleado::class, 'idEmpleado');
-    }
 }

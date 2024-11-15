@@ -59,6 +59,8 @@ class NominaController extends Controller
                 if ($comisionAuxilio) {
                     $comisionesNomina[] = [
                         'comision_id' => $comisionAuxilio->id,
+                        'esporcentaje' => $comisionAuxilio->esporcentaje,
+                        'monto' => $comisionAuxilio->monto
                     ];
                     $vComisiones += $comisionAuxilio->monto;
                 }
@@ -95,6 +97,8 @@ class NominaController extends Controller
                 if ($applyDeduccion) {
                     $deduccionesNomina[] = [
                         'deduccion_id' => $deduccion->id,
+                        'esporcentaje' => $deduccion->esporcentaje,
+                        'monto' => $deduccion->monto
                     ];
                 }
             }
@@ -118,6 +122,8 @@ class NominaController extends Controller
                 ComisionNomina::create([
                     'nomina_id' => $nomina->id,
                     'comision_id' => $comisionData['comision_id'],
+                    'esporcentaje' => $comisionData['esporcentaje'],
+                    'monto' => $comisionData['monto']
                 ]);
             }
 
@@ -126,6 +132,8 @@ class NominaController extends Controller
                 DeduccionNomina::create([
                     'nomina_id' => $nomina->id,
                     'deduccion_id' => $deduccionData['deduccion_id'],
+                    'esporcentaje' => $deduccionData['esporcentaje'],
+                    'monto' => $deduccionData['monto']
                 ]);
             }
 

@@ -19,9 +19,9 @@ Route::resource('empleados', EmpleadoController::class);
 Route::resource('nominas', NominaController::class);
 Route::resource('deducciones', DeduccionController::class);
 Route::resource('bonificaciones', ComisionController::class);
-Route::resource('liquidacion', LiquidacionController::class);
-Route::get('/liquidacion/{id}', [LiquidacionController::class, 'show'])->name('liquidaciones.show');
-Route::get('/nominas/{id}', [NominaController::class, 'show'])->name('nominas.show');
+Route::resource('liquidaciones', LiquidacionController::class);
+//Route::get('/liquidaciones/{id}', [LiquidacionController::class, 'show'])->name('liquidaciones.show');
+//Route::get('/nominas/{id}', [NominaController::class, 'show'])->name('nominas.show');
 
 use App\Models\Nomina;
 
@@ -33,6 +33,8 @@ Route::get('edit/nominas/{id}', function ($id) {
 
 
 
+
+Route::delete('api/delete/liquidacion/{id}', [LiquidacionController::class, 'destroy']);
 
 Route::post('api/add/liquidacion', [LiquidacionController::class, 'store']);
 Route::get('api/getall/liquidaciones', [LiquidacionController::class, 'getLiquidaciones']);

@@ -24,7 +24,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('correo', 255)->unique();
             $table->string('tipo_contrato', 50);
             $table->decimal('salario', 20, 2);
-            $table->string('tipo_trabajador', 50);
+            $table->string('tipo_trabajador', 255);
             $table->boolean('salario_integral')->default(false);
             $table->date('fecha_contratacion');
             $table->string('frecuencia_pago', 50);

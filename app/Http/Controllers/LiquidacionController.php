@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Liquidacion;
 use App\Models\Empleado;
+use App\Models\DeduccionNomina;
+use App\Models\ComisionNomina;
 use App\Models\Nomina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -94,11 +96,28 @@ class LiquidacionController extends Controller
     // Eliminar una liquidación de la base de datos
     public function destroy($id)
     {
+        // Find the liquidacion by id
         $liquidacion = Liquidacion::findOrFail($id);
+
+        // Get all the nominas associated with the liquidacion
+        $nominas = Nomina::where('idLiquidacion', $id)->get()->each->delete();
+
+        // Loop through each nomina and delete associated deducciones and comisiones
+        //foreach ($nominas as $nomina) {
+            // Get the related DeduccionNomina and ComisionNomina records and delete them
+            //DeduccionNomina::where('nomina_id', $nomina->id)->delete();
+            //ComisionNomina::where('nomina_id', $nomina->id)->delete();
+        //}
+
+        // Delete all the nominas associated with the liquidacion
+        //$nominas->each->delete();
+
+        // Finally, delete the liquidacion
         $liquidacion->delete();
 
         return redirect()->route('liquidaciones.index')->with('success', 'Liquidación eliminada exitosamente.');
     }
+
 
     public function getLiquidaciones()
     {
