@@ -12,10 +12,8 @@ class EmpleadoController extends Controller
     // Mostrar todos los empleados
     public function index()
     {
-        $empleados = Empleado::all();
-        // return view('empleados.index', compact('empleados'));
-        $totalEmpleados = $empleados->count();
-        return view('empleados.index', compact('empleados', 'totalEmpleados'));
+        $empleados = Empleado::all(); // Cargar empleados con departamentos
+        return view('empleados.index', compact('empleados'));
     }
 
     // Mostrar el formulario para crear un nuevo empleado
@@ -70,9 +68,12 @@ class EmpleadoController extends Controller
 
 
     public function store(Request $request)
-{
-        // Validación de los datos
-        $validated = $request->validate([
+    {
+
+        dd($request->all());
+        
+        $request->validate([
+            'idEmpleado' => 'required|string|unique:empleados,idEmpleado',
             'primer_nombre' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'tipo_identificacion' => 'required|string|max:50',

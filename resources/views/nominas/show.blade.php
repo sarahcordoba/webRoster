@@ -71,7 +71,7 @@
                             <strong>Monto</strong>
                             @if($comisiona->comision->esporcentaje)
                             {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($comisiona->monto / 100), 2) }}
+                            ${{ number_format($nomina->empleado->salario * ($comisiona->monto), 2) }}
                             @else
                             {{-- Muestra el monto directamente si no es un porcentaje --}}
                             ${{ number_format($comisiona->monto, 2) }}
@@ -107,7 +107,7 @@
                             <strong>Monto</strong>
                             @if($deducciona->esporcentaje)
                             {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($deducciona->monto / 100), 2) }}
+                            ${{ number_format($nomina->empleado->salario * ($deducciona->monto), 2) }}
                             @else
                             {{-- Muestra el monto directamente si no es un porcentaje --}}
                             ${{ number_format($deducciona->monto, 2) }}
@@ -126,7 +126,7 @@
         <div style="display:flex;  gap: .5rem;">
             <a href="{{ route('nominas.edit', $nomina->id) }}" class="btn btn-primary">Editar</a>
 
-            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-primary">Liquidar</a>
+            <a href="{{ route('nominas.liquidar', $nomina->id) }}" class="btn btn-primary">Liquidar</a>
         </div>
     </div>
 
