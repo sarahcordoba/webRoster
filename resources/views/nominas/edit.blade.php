@@ -266,7 +266,98 @@
         </div>
     </div>
 </div>
+
+<!-- Modal principal -->
+<div class="modal fade" id="modalDeduccion" tabindex="-1" aria-labelledby="modalDeduccionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDeduccionLabel">Añadir Deducción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Combobox de deducciones disponibles -->
+                <div class="mb-3">
+                    <label for="selectDeduccion" class="form-label">Seleccionar Deducción</label>
+                    <select class="form-select" id="selectDeduccion">
+                        <option value="" selected>-- Selecciona o crea una nueva --</option>
+                        <!-- PHP: Añadir deducciones disponibles -->
+                        <?php foreach ($deduccionesDisponibles as $deduccion): ?>
+                            <option value="<?= $deduccion['id'] ?>" data-esporcentaje="<?= $deduccion['esporcentaje'] ?>" data-monto="<?= $deduccion['monto'] ?>">
+                                <?= $deduccion['descripcion'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- Checkbox para porcentaje -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="checkboxPorcentaje">
+                    <label class="form-check-label" for="checkboxPorcentaje">
+                        ¿Es porcentaje?
+                    </label>
+                </div>
+
+                <!-- Input para monto -->
+                <div class="mb-3">
+                    <label for="inputMonto" class="form-label">Monto</label>
+                    <input type="number" class="form-control" id="inputMonto" placeholder="Ingresa el monto">
+                </div>
+
+                <!-- Botón para crear una nueva deducción -->
+                <button type="button" class="btn btn-outline-secondary" id="btnNuevaDeduccion">
+                    Crear Nueva Deducción
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarDeduccion">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Modal para crear una nueva deducción -->
+<div class="modal fade" id="modalNuevaDeduccion" tabindex="-1" aria-labelledby="modalNuevaDeduccionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalNuevaDeduccionLabel">Crear Nueva Deducción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Tipo -->
+                <div class="mb-3">
+                    <label for="inputTipo" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" id="inputTipo" placeholder="Ingresa el tipo">
+                </div>
+
+                <!-- Descripción -->
+                <div class="mb-3">
+                    <label for="inputDescripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="inputDescripcion" placeholder="Ingresa la descripción">
+                </div>
+
+                <!-- Checkbox para porcentaje y monto -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="checkboxNuevaPorcentaje">
+                    <label class="form-check-label" for="checkboxNuevaPorcentaje">
+                        ¿Es porcentaje?
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label for="inputNuevaMonto" class="form-label">Monto</label>
+                    <input type="number" class="form-control" id="inputNuevaMonto" placeholder="Ingresa el monto">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarNuevaDeduccion">Crear y Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Configuración del token CSRF para las solicitudes
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -353,6 +444,84 @@
     document.getElementById('btnNuevaComision').addEventListener('click', function() {
         const modal = new bootstrap.Modal(document.getElementById('modalNuevaComision'));
         modal.show();
+    });
+</script>
+{{-- CODIGO DEDUCCIONES --}}
+<script>
+    // Configuración del token CSRF para las solicitudes
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    function sendPostRequest(url, data, onSuccess, onError) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(onSuccess)
+        .catch(onError);
+    }
+
+    // Actualizar campos al seleccionar una deducción
+    document.getElementById('selectDeduccion').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const esPorcentaje = selectedOption.getAttribute('data-esporcentaje') === '1';
+        const monto = parseFloat(selectedOption.getAttribute('data-monto')) || 0;
+
+        document.getElementById('checkboxPorcentaje').checked = esPorcentaje;
+        document.getElementById('inputMonto').value = esPorcentaje ? monto * 100 : monto;
+    });
+
+    // Cambiar monto según "es porcentaje"
+    document.getElementById('checkboxPorcentaje').addEventListener('change', function () {
+        const monto = parseFloat(document.getElementById('inputMonto').value) || 0;
+        document.getElementById('inputMonto').value = this.checked ? monto * 100 : monto / 100;
+    });
+
+    // Guardar nueva deducción
+    document.getElementById('btnGuardarNuevaDeduccion').addEventListener('click', function () {
+        const tipo = document.getElementById('inputTipo').value;
+        const descripcion = document.getElementById('inputDescripcion').value;
+        const esPorcentaje = document.getElementById('checkboxNuevaPorcentaje').checked ? 1 : 0;
+        const monto = parseFloat(document.getElementById('inputNuevaMonto').value) || 0;
+
+        sendPostRequest('/api/add/deducciones', { tipo, descripcion, esporcentaje: esPorcentaje, monto }, function (response) {
+            alert('Nueva deducción creada con éxito.');
+            // Insertar automáticamente en deducciones_nomina
+            sendPostRequest('/api/add/deduccionesnomina', {
+                nomina_id: '<?= $nomina->id ?>',
+                deduccion_id: response.id,
+                esporcentaje: esPorcentaje,
+                monto
+            }, function () {
+                alert('Deducción asignada a la nómina.');
+                location.reload();
+            });
+        }, function () {
+            alert('Error al crear la nueva deducción.');
+        });
+    });
+
+    // Guardar deducción seleccionada
+    document.getElementById('btnGuardarDeduccion').addEventListener('click', function () {
+        const deduccionId = document.getElementById('selectDeduccion').value;
+        const esPorcentaje = document.getElementById('checkboxPorcentaje').checked ? 1 : 0;
+        const monto = parseFloat(document.getElementById('inputMonto').value) || 0;
+
+        sendPostRequest('/api/add/deduccionesnomina', {
+            nomina_id: '<?= $nomina->id ?>',
+            deduccion_id: deduccionId,
+            esporcentaje: esPorcentaje,
+            monto
+        }, function () {
+            alert('Deducción guardada con éxito.');
+            location.reload();
+        }, function () {
+            alert('Error al guardar la deducción.');
+        });
     });
 </script>
 @endsection

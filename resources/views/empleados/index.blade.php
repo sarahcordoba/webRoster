@@ -15,7 +15,7 @@
             <a href="{{ route('empleados.create') }}" class="btn btn-primary">+ Nuevo empleado</a>
         </div>
     </div>
-    <p>Crea tus empleados uno a uno. Total de empleados: {{ $totalEmpleados }}</p>
+    <p>Crea tus empleados uno a uno. Total de empleados: {{ count($empleados) }}</p>
     <div class="card">
         <div class="card-body">
             <input type="text" id="search-input" class="form-control mb-3" placeholder="Buscar por nombre, cargo, identificación o salario">

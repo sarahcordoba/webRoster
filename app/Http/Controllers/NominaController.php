@@ -10,6 +10,7 @@ use App\Models\DeduccionNomina;
 use App\Models\ComisionNomina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class NominaController extends Controller
 {
@@ -116,6 +117,7 @@ class NominaController extends Controller
             ];
 
             $nomina = Nomina::create($nominaData);
+            Log::error('GUARDANMOS LA NOMINA');
 
             // Guardar cada comisión de la nómina con el ID de la nómina creada
             foreach ($comisionesNomina as $comisionData) {
@@ -126,6 +128,7 @@ class NominaController extends Controller
                     'monto' => $comisionData['monto']
                 ]);
             }
+            Log::error('GUARDANMOS LAS COMISIONES');
 
             // Guardar cada deducción de la nómina con el ID de la nómina creada
             foreach ($deduccionesNomina as $deduccionData) {
@@ -136,7 +139,8 @@ class NominaController extends Controller
                     'monto' => $deduccionData['monto']
                 ]);
             }
-
+            
+            DB::select("UpdateLiquidacionTotals('$nomina->idLiquidacion')");
             return response()->json($nomina, 201);
         } catch (\Exception $e) {
             // Registrar el error y retornar una respuesta JSON
