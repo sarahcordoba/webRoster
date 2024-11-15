@@ -30,10 +30,6 @@ Route::get('edit/nominas/{id}', function ($id) {
     return view('nominas.edit', compact('nomina'));
 })->name('nominas.edit');
 
-
-
-
-
 Route::delete('api/delete/liquidacion/{id}', [LiquidacionController::class, 'destroy']);
 
 Route::post('api/add/liquidacion', [LiquidacionController::class, 'store']);
@@ -42,13 +38,13 @@ Route::post('api/add/nomina', [NominaController::class, 'store']);
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboardb', function () {
     return view('dashboardb');
