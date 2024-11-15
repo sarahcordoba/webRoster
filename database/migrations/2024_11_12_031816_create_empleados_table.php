@@ -27,6 +27,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('tipo_trabajador', 255);
             $table->boolean('salario_integral')->default(false);
             $table->date('fecha_contratacion');
+            $table->date('fecha_fin_contrato')->nullable();
             $table->string('frecuencia_pago', 50);
             $table->string('subtipo_trabajador', 50);
             $table->boolean('auxilio_transporte')->default(false);
@@ -38,6 +39,9 @@ class CreateEmpleadosTable extends Migration
             $table->string('area', 255);
             //$table->integer('departamento_id')->unsigned();
             $table->string('metodo_pago', 255);
+            $table->string('banco', 255)->nullable(); 
+            $table->string('numero_cuenta', 24)->nullable(); 
+            $table->string('tipo_cuenta')->nullable(); 
             $table->string('eps', 255);
             $table->string('caja_compensacion', 255);
             $table->string('fondo_pensiones', 255);

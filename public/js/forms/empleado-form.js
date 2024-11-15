@@ -1,22 +1,25 @@
-
 let currentStep = 1;
 
-function nextForm() {
+function nextForm(event) {
+    event.preventDefault();
     if (currentStep < 3) {
         document.getElementById('form' + currentStep).style.display = 'none';
         currentStep++;
         document.getElementById('form' + currentStep).style.display = 'block';
         updateSteps();
+        updateButtons();
         document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
     }
 }
 
-function prevForm() {
+function prevForm(event) {
+    event.preventDefault();
     if (currentStep > 1) {
         document.getElementById('form' + currentStep).style.display = 'none';
         currentStep--;
         document.getElementById('form' + currentStep).style.display = 'block';
         updateSteps();
+        updateButtons();
         document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
     }
 }
@@ -32,18 +35,37 @@ function updateSteps() {
     }
 }
 
-// Asegúrate de que el primer formulario sea visible y el primer paso esté activo al cargar la página
+function updateButtons() {
+    const nextButton = document.getElementById('nextButton');
+    const submitButton = document.getElementById('submitButton');
+
+    if (currentStep === 3) {
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+    } else {
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+    }
+}
+
 window.onload = function() {
     updateSteps();
-    document.getElementById('form' + currentStep).style.display = 'block'; // Mostrar el primer formulario
-    document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%'; // Barra de progreso al 33%
+    document.getElementById('form' + currentStep).style.display = 'block';
+    document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+
+    document.getElementById('empleado_form').addEventListener('submit', function(event) {
+        alert('Formulario enviado correctamente.');
+    });
+
+    document.getElementById('prevButton').addEventListener('click', prevForm);
+    document.getElementById('nextButton').addEventListener('click', nextForm);
 };
 
 
 // para que la fecha de fin de contrsto sea posterior a la fecha de inicio de ocntraro
 document.addEventListener('DOMContentLoaded', (event) => {
-    const hiringDateInput = document.getElementById('hiring_date');
-    const contractEndDateInput = document.getElementById('contract_end_date');
+    const hiringDateInput = document.getElementById('fecha_contratacion');
+    const contractEndDateInput = document.getElementById('fecha_fin_contrato');
 
     contractEndDateInput.addEventListener('change', validateDates);
     hiringDateInput.addEventListener('change', validateDates);
@@ -60,10 +82,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const idNumberInput = document.getElementById('id_number');
-    const phoneInput = document.getElementById('phone');
-    const holidayInput = document.getElementById('holiday');
+    const idNumberInput = document.getElementById('id');
+    const phoneInput = document.getElementById('celular');
+    const holidayInput = document.getElementById('dias_vacaciones');
     const numCuentaInput = document.getElementById('numero_cuenta');
+    const salaryInput = document.getElementById('salario');
+
 
     // Permitir solo números y hasta 15 caracteres para el número de identificación
     idNumberInput.addEventListener('input', () => {
@@ -83,6 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
         numCuentaInput.value = numCuentaInput.value.replace(/[^0-9]/g, '').slice(0, 4);
     });
 
+    salaryInput.addEventListener('input', () => {
+        salaryInput.value = salaryInput.value.replace(/[^0-9]/g, '').slice(0, 20);
+    });
+
 
 });
 
@@ -94,7 +122,7 @@ async function cargarMunicipios() {
         const data = await response.json(); // Parsear el JSON
 
         // Obtener el elemento select
-        const selectElement = document.getElementById("city");
+        const selectElement = document.getElementById("municipio");
 
         // Agregar las opciones dinámicamente
         data.forEach(item => {
@@ -109,8 +137,6 @@ async function cargarMunicipios() {
     }
 }
 
-
-
 async function cargarTiposC() {
     try {
         // Cargar el archivo JSON
@@ -118,8 +144,8 @@ async function cargarTiposC() {
         const data = await response.json(); // Parsear el JSON
 
         // Obtener el elemento select
-        const selectElement = document.getElementById("worker_type");
-        const salarioInput = document.getElementById("salary"); // Asegúrate de que este sea el id de tu campo de salario
+        const selectElement = document.getElementById("tipo_trabajador");
+        const salarioInput = document.getElementById("salario"); // Asegúrate de que este sea el id de tu campo de salario
 
         const tiposConSalarioCero = [12, 19, 21, 42];
 
@@ -141,6 +167,52 @@ async function cargarTiposC() {
     }
 }
 
+async function cargarEPS() {
+    try {
+        // Cargar el archivo JSON
+        const response = await fetch('/data/eps.json');
+        const data = await response.json(); // Parsear el JSON
+
+        // Obtener el elemento select
+        const selectElement = document.getElementById("eps");
+
+        // Agregar las opciones dinámicamente
+        data.forEach(item => {
+            const option = document.createElement("option");
+            // Mostrar el municipio y departamento concatenados
+            option.value = item.codigo;
+            option.textContent = `${item.nombre}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON: ", error);
+    }
+}
+
+async function cargarCajasComp() {
+    try {
+        // Cargar el archivo JSON
+        const response = await fetch('/data/cajasdecompen.json');
+        const data = await response.json(); // Parsear el JSON
+
+        // Obtener el elemento select
+        const selectElement = document.getElementById("caja_compensacion");
+
+        // Agregar las opciones dinámicamente
+        data.forEach(item => {
+            const option = document.createElement("option");
+            // Mostrar el municipio y departamento concatenados
+            option.value = item.codigo;
+            option.textContent = `${item.nombre}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON: ", error);
+    }
+}
+
+
+
 function verificarSalario(tiposConSalarioCero, tipoCotizanteId, salarioInput) {
     const salario = parseFloat(salarioInput.value); // Valor del salario ingresado
 
@@ -160,9 +232,11 @@ function verificarSalario(tiposConSalarioCero, tipoCotizanteId, salarioInput) {
 document.addEventListener('DOMContentLoaded', cargarTiposC);
 // Llamar a la función para cargar los municipios al cargar la página
 cargarMunicipios();
+cargarEPS();
+cargarCajasComp();
 
 document.addEventListener('DOMContentLoaded', function () {
-    const paymentMethodSelect = document.getElementById('payment_method');
+    const paymentMethodSelect = document.getElementById('metodo_pago');
     const transferenciaInfo = document.getElementById('transferencia_info');
     paymentMethodSelect.addEventListener('change', function () {
         console.log(paymentMethodSelect.value)

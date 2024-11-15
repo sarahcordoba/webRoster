@@ -7,12 +7,8 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\DeduccionController;
 use App\Http\Controllers\ComisionController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiquidacionController;
 use App\Models\Comision;
-
-
-Route::get('/', [HomeController::class, 'index']);
 
 Route::resource('departamentos', DepartamentoController::class);
 Route::resource('empleados', EmpleadoController::class);
@@ -38,9 +34,9 @@ Route::post('api/add/nomina', [NominaController::class, 'store']);
 
 
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
+Route::get('/', function () {
+    return view('dashboard');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

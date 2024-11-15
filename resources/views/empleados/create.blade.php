@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <form action="{{ route('empleados.store') }}" method="POST" id="empleado_form " autocomplete="off">
+        <form action="{{ route('empleados.store') }}" method="POST" id="empleado_form" autocomplete="off">
             @csrf
 
             <div class="progres">
@@ -42,24 +42,24 @@
                     <div class="card-body">
                         {{-- <div class="row"> --}}
                         <div class="form-group">
-                            <label class="requir" for="first_name">Primer nombre</label>
-                            <input type="text" id="first_name" name="first_name" class="form-control" required
+                            <label class="requir" for="primer_nombre">Primer nombre</label>
+                            <input type="text" id="primer_nombre" name="primer_nombre" class="form-control" required
                                 autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label for="middle_name">Segundo nombre</label>
-                            <input type="text" id="middle_name" name="middle_name" class="form-control">
+                            <label for="segundo_nombre">Segundo nombre</label>
+                            <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="requir" for="last_name">Primer apellido</label>
-                            <input type="text" id="last_name" name="last_name" class="form-control" required>
+                            <label class="requir" for="primer_apellido">Primer apellido</label>
+                            <input type="text" id="primer_apellido" name="primer_apellido" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="second_last_name">Segundo apellido</label>
-                            <input type="text" id="second_last_name" name="second_last_name" class="form-control">
+                            <label for="segundo_apellido">Segundo apellido</label>
+                            <input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control">
                         </div>
-                        <div class="form-group"> <label class="requir" for="id_type">Tipo de identificación
-                            </label> <select id="id_type" name="id_type" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="tipo_identificacion">Tipo de identificación
+                            </label> <select id="tipo_identificacion" name="tipo_identificacion" class="form-control" required>
                                 <option value="cedula_ciudadania">Cédula de ciudadanía</option>
                                 <option value="cedula_extranjeria">Cédula de extranjería</option>
                                 <option value="pasaporte">Pasaporte</option>
@@ -68,8 +68,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="requir" for="id_number">Número de identificación</label>
-                            <input type="text" id="id_number" name="id_number" class="form-control" required>
+                            <label class="requir" for="id">Número de identificación</label>
+                            <input type="text" id="id" name="id" class="form-control" required>
                         </div>
                         {{-- </div> --}}
                     </div>
@@ -84,32 +84,32 @@
                         <div class="card-body">
                             {{-- <div class="row"> --}}
                             {{-- <div class="form-group">
-                                <label for="city">Municipio *</label>
-                                <input type="text" id="city" name="city" class="form-control" required>
+                                <label for="municipio">Municipio *</label>
+                                <input type="text" id="municipio" name="municipio" class="form-control" required>
                             </div> --}}
 
-                            <div class="form-group"> <label class="requir" for="city">Municipio
-                                </label> <select id="city" name="city" class="form-control" required>
+                            <div class="form-group"> <label class="requir" for="municipio">Municipio
+                                </label> <select id="municipio" name="municipio" class="form-control" required>
                                 </select>
                             </div>
 
-                            {{-- <div class="form-group"> <label class="requir" for="city">Municipio
+                            {{-- <div class="form-group"> <label class="requir" for="municipio">Municipio
                                 </label>
                                 <div id="municipios" class="dropdown-container"></div>
 
                             </div> --}}
 
                             <div class="form-group">
-                                <label class="requir" for="address">Dirección</label>
-                                <input type="text" id="address" name="address" class="form-control" required>
+                                <label class="requir" for="direccion">Dirección</label>
+                                <input type="text" id="direccion" name="direccion" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label class="requir" for="phone">Celular</label>
-                                <input type="text" id="phone" name="phone" class="form-control">
+                                <label class="requir" for="celular">Celular</label>
+                                <input type="text" id="celular" name="celular" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="requir" for="email">Correo electrónico</label>
-                                <input type="email" id="email" name="email" class="form-control" required>
+                                <label class="requir" for="correo">Correo electrónico</label>
+                                <input type="email" id="correo" name="correo" class="form-control" required>
                             </div>
                             {{-- </div> --}}
                         </div>
@@ -123,8 +123,8 @@
                     <div class="card-header">Contrato</div>
                     <div class="card-body">
                         {{-- <div class="row"> --}}
-                        <div class="form-group"> <label class="requir" for="type_contract">Tipo de contrato
-                            </label> <select id="type_contract" name="type_contract" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="tipo_contrato">Tipo de contrato
+                            </label> <select id="tipo_contrato" name="tipo_contrato" class="form-control" required>
                                 <option value="termino_fijo">Término Fijo</option>
                                 <option value="termino_indefinido">Término Indefinido</option>
                                 <option value="labor_obra">Labor u obra</option>
@@ -135,19 +135,19 @@
                         </div>
                         <div class="row_d">
                             <div class="form-group">
-                                <label class="requir" for="hiring_date">Fecha de contratación</label>
-                                <input type="date" id="hiring_date" name="hiring_date" class="form-control" required>
+                                <label class="requir" for="fecha_contratacion">Fecha de contratación</label>
+                                <input type="date" id="fecha_contratacion" name="fecha_contratacion" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label class="requir" for="contract_end_date">Fecha de fin de contrato</label>
-                                <input type="date" id="contract_end_date" name="contract_end_date"
+                                <label class="requir" for="fecha_fin_contrato">Fecha de fin de contrato</label>
+                                <input type="date" id="fecha_fin_contrato" name="fecha_fin_contrato"
                                     class="form-control" required>
                             </div>
                         </div>
                         <div class="row_d">
-                            <div class="form-group"> <label class="requir" for="salary">Salario</label>
+                            <div class="form-group"> <label class="requir" for="salario">Salario</label>
                                 <div class="input-group"> <span class="input-group-text">$</span> <input type="text"
-                                        id="salary" name="salary" class="form-control" required>
+                                        id="salario" name="salario" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group form-group-radio">
@@ -155,32 +155,32 @@
                                 <div>
                                     <div class="form-check form-check-inline radios ">
                                         <input class="form-check-input" type="radio" name="salario_integral"
-                                            id="salario_integral_si" value="si">
+                                            id="salario_integral_si" value="1">
                                         <label class="form-check-label" for="salario_integral_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
                                         <input class="form-check-input" type="radio" name="salario_integral"
-                                            id="salario_integral_no" value="no" checked>
+                                            id="salario_integral_no" value="0" checked>
                                         <label class="form-check-label" for="salario_integral_no">No</label>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="form-group"> <label class="requir" for="paym_frec">Frecuencia de pago
-                            </label> <select id="paym_frec" name="paym_frec" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="frecuencia_pago">Frecuencia de pago
+                            </label> <select id="frecuencia_pago" name="frecuencia_pago" class="form-control" required>
                                 <option value="mensual">Mensual</option>
                                 <option value="quincenal">Quincenal</option>
                             </select>
                         </div>
-                        <div class="form-group"> <label class="requir" for="worker_type">Tipo de trabajador
+                        <div class="form-group"> <label class="requir" for="tipo_trabajador">Tipo de trabajador
                             </label>
                             {{-- <div id="tipo_cotizacion" class="dropdown-container"></div> --}}
-                             <select id="worker_type" name="worker_type" class="form-control" required>
+                             <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
                             </select>
                         </div>
-                        <div class="form-group"> <label class="requir" for="worker_subtype">Subtipo de trabajador
-                            </label> <select id="worker_subtype" name="worker_subtype" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="subtipo_trabajador">Subtipo de trabajador
+                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control" required>
                                 <option value="no_aplica">No aplica</option>
                                 <option value="dependiente_pensionado_vejez">Dependiente pensionado por vejez activa
                                 </option>
@@ -188,55 +188,55 @@
                         </div>
                         <div class="row_d">
                             <div class="form-group form-group-radio">
-                                <label class="requir" for="salario_integral">Auxilio de transporte</label>
+                                <label class="requir" for="auxilio_transporte">Auxilio de transporte</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="aux_transp"
-                                            id="aux_transp_si" value="si">
-                                        <label class="form-check-label" for="aux_transp_si">Sí</label>
+                                        <input class="form-check-input" type="radio" name="auxilio_transporte"
+                                            id="auxilio_transporte_si" value="1">
+                                        <label class="form-check-label" for="auxilio_transporte_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="aux_transp"
-                                            id="aux_transp_no" value="no" checked>
-                                        <label class="form-check-label" for="aux_transp_no">No</label>
+                                        <input class="form-check-input" type="radio" name="auxilio_transporte"
+                                            id="auxilio_transporte_no" value="0" checked>
+                                        <label class="form-check-label" for="auxilio_transporte_no">No</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-radio">
-                                <label class="requir" for="salario_integral">Alto riesgo</label>
+                                <label class="requir" for="alto_riesgo">Alto riesgo</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="aux_transport"
-                                            id="aux_transport_si" value="si">
-                                        <label class="form-check-label" for="aux_transport_si">Sí</label>
+                                        <input class="form-check-input" type="radio" name="alto_riesgo"
+                                            id="alto_riesgo_si" value="1">
+                                        <label class="form-check-label" for="alto_riesgo_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
                                         <input class="form-check-input" type="radio" name="alto_riesgo"
-                                            id="alto_riesgo_no" value="no" checked>
+                                            id="alto_riesgo_no" value="0" checked>
                                         <label class="form-check-label" for="alto_riesgo_no">No</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-radio">
-                                <label class="requir" for="salario_integral">¿Sábado laboral?</label>
+                                <label class="requir" for="sabado_laboral">¿Sábado laboral?</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
                                         <input class="form-check-input" type="radio" name="sabado_laboral"
-                                            id="sabado_laboral_si" value="si">
+                                            id="sabado_laboral_si" value="1">
                                         <label class="form-check-label" for="sabado_laboral_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
                                         <input class="form-check-input" type="radio" name="sabado_laboral"
-                                            id="sabado_laboral_no" value="no" checked>
+                                            id="sabado_laboral_no" value="0" checked>
                                         <label class="form-check-label" for="sabado_laboral_no">No</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"> <label class="requir" for="risk_level" class="R">Nivel de
-                                riesgo</label> <select id="risk_level" name="risk_level" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="nivel_riesgo" class="R">Nivel de
+                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control" required>
                                 <option value="I">Riesgo I - 0.522%</option>
                                 <option value="II">Riesgo I - 1.044%</option>
                                 <option value="III">Riesgo III - 2.436%</option>
@@ -255,8 +255,8 @@
                         <div class="card-header">Puesto de trabajo</div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label class="requir" for="city">Cargo</label>
-                                <input type="text" id="charge" name="charge" class="form-control" required>
+                                <label class="requir" for="cargo">Cargo</label>
+                                <input type="text" id="cargo" name="cargo" class="form-control" required>
                             </div>
                             <div class="form-group"> <label class="requir" for="area">Área</label> <select
                                     id="area" name="area" class="form-control" required>
@@ -266,8 +266,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="requir" for="address">Días de vacaciones acumuladas</label>
-                                <input type="text" id="holiday" name="holiday" class="form-control" required>
+                                <label class="requir" for="dias_vacaciones">Días de vacaciones acumuladas</label>
+                                <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -280,8 +280,8 @@
                 <div class="card mb-3">
                     <div class="card-header">Datos de pago</div>
                     <div class="card-body">
-                        <div class="form-group"> <label class="requir" for="payment_method">Método de pago
-                            </label> <select id="payment_method" name="payment_method" class="form-control" required>
+                        <div class="form-group"> <label class="requir" for="metodo_pago">Método de pago
+                            </label> <select id="metodo_pago" name="metodo_pago" class="form-control" required>
                                 <option value="pago_efectivo">Pago en efectivo</option>
                                 <option value="transferencia_bancaria">Transferencia bancaria</option>
                                 <option value="cheque_bancario">Cheque bancario</option>
@@ -360,24 +360,11 @@
                         <div class="card-body">
                             <div class="form-group"> <label class="requir" for="eps">EPS
                                 </label> <select id="eps" name="eps" class="form-control" required>
-                                    <option value="transferencia_bancaria">Transferencia bancaria</option>
-                                    <option value="cheque_bancario">Cheque bancario</option>
-                                    <option value="pago_efectivo">Pago en efectivo</option>
-                                    <option value="tarjeta_preparada">Tarjeta prepagada</option>
-                                    <option value="pse">Pago Seguro en Línea (PSE)</option>
-                                    <option value="pago_movil">Pago por medio de plataformas móviles (Nequi, Daviplata)
-                                    </option>
-                                    <option value="pago_especie">Pago en especie (bonos o vales)</option>
-                                    <option value="paypal">Pago por PayPal</option>
-                                    <option value="fintech">Pago a través de fintechs</option>
                                 </select>
                             </div>
                             <div class="form-group"> <label class="requir" for="caja_compensacion">Caja de compensación
                                 </label> <select id="caja_compensacion" name="caja_compensacion" class="form-control"
                                     required>
-                                    <option value="administrativa">Administrativa</option>
-                                    <option value="operativa">Operativa</option>
-                                    <option value="ventas">Ventas</option>
                                 </select>
                             </div>
                             <div class="form-group"> <label class="requir" for="fondo_pensiones">Fondo de pensiones
@@ -388,8 +375,8 @@
                                     <option value="ventas">Ventas</option>
                                 </select>
                             </div>
-                            <div class="form-group"> <label class="requir" for="caja_compensacion">Caja de compensación
-                                </label> <select id="caja_compensacion" name="caja_compensacion" class="form-control"
+                            <div class="form-group"> <label class="requir" for="fondo_cesantias">Caja de compensación
+                                </label> <select id="fondo_cesantias" name="fondo_cesantias" class="form-control"
                                     required>
                                     <option value="administrativa">Administrativa</option>
                                     <option value="operativa">Operativa</option>
@@ -407,8 +394,9 @@
                 <button type="button" class="btn btn-primary" onclick="showNextSection()">Siguiente</button>
             </div> --}}
             <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-secondary" onclick="prevForm()">Atrás</button>
-                <button class="btn btn-primary" onclick="nextForm()">Siguiente</button>
+                <button class="btn btn-secondary" id="prevButton" onclick="prevForm()">Atrás</button>
+                <button class="btn btn-primary" id="nextButton" onclick="nextForm()">Siguiente</button>
+                <button type="submit" class="btn btn-success" id="submitButton" style="display: none;">Guardar</button>
             </div>
 
             <p class="mt-3">Los campos marcados con * son obligatorios</p>

@@ -150,7 +150,7 @@ class FilterableDropdown {
         this.closeOptions();
 
         // Aquí es donde se agrega la lógica de verificación del salario
-        const salarioInput = document.getElementById("salary");
+        const salarioInput = document.getElementById("salario");
         const tiposConSalarioCero = [12, 19, 21, 42]; // Tipos de cotizantes con salario cero
 
         // Llamar a la función de verificación con los valores correctos

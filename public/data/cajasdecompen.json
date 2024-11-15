@@ -1,0 +1,62 @@
+ [
+    {
+      "codigo": "CCF033",
+      "nombre": "EPS Familiar de Colombia S.A.S.",
+      "regimen": "SBS"
+    },
+    {
+      "codigo": "CCF050",
+      "nombre": "Caja de Compensación Familiar del Oriente Colombiano \"Comfaoriente\"",
+      "regimen": "SBS"
+    },
+    {
+      "codigo": "CCF055",
+      "nombre": "Cajacopi EPS S.A.S.",
+      "regimen": "SBS"
+    },
+    {
+      "codigo": "CCF102",
+      "nombre": "Caja de Compensación Familiar del Chocó",
+      "regimen": "SBS"
+    },
+    {
+      "codigo": "CCFC20",
+      "nombre": "Caja de Compensación Familiar del Chocó",
+      "regimen": "CNT -CM"
+    },
+    {
+      "codigo": "CCFC33",
+      "nombre": "EPS Familiar de Colombia S.A.S.",
+      "regimen": "CNT -CM"
+    },
+    {
+      "codigo": "CCFC50",
+      "nombre": "Caja de Compensación Familiar del Oriente Colombiano \"Comfaoriente\"",
+      "regimen": "CNT -CM"
+    },
+    {
+      "codigo": "CCFC55",
+      "nombre": "Cajacopi EPS S.A.S.",
+      "regimen": "CNT -CM"
+    },
+    {
+      "codigo": "EPS012",
+      "nombre": "Caja de Compensación Familiar del Valle del Cauca \"Comfenalco Valle de la Gente\"",
+      "regimen": "CNT"
+    },
+    {
+      "codigo": "EPSS08",
+      "nombre": "Caja de Compensación Familiar Compensar",
+      "regimen": "SBS -CM"
+    },
+    {
+      "codigo": "EPS008",
+      "nombre": "Caja de Compensación Familiar Compensar",
+      "regimen": "CNT"
+    },
+    {
+      "codigo": "EPS012",
+      "nombre": "Caja de Compensación Familiar del Valle del Cauca \"Comfenalco Valle de la Gente\"",
+      "regimen": "CNT"
+    }
+  ]
