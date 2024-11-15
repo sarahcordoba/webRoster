@@ -32,7 +32,7 @@ p {
     margin-bottom: 30px;
 }
 
-.steps-header {
+/* .steps-header {
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
@@ -46,6 +46,9 @@ p {
     flex: 1;
     text-align: center;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dark-mode .step {
@@ -53,8 +56,76 @@ p {
 }
 
 .steps-header .step.active {
-    background-color: var(--color-step);
+    background-color: var(--color-primary-light);
     color: var(--color-sb-light);
+}
+
+.dark-mode .steps-header .step.active {
+    background-color: var(--color-primary-dark);
+    color: var(--color-sb-light);
+} */
+
+
+.dark-mode .step-container{
+    background-color: var(--color-form-dark);
+}
+
+.step {
+    display: flex;
+    align-items: center;
+}
+
+.step-indicator {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #bbbbbb;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+.dark-mode .step-indicator {
+    background-color: var(--color-step-dark);
+}
+
+.step.active .step-indicator {
+    background-color: var(--color-primary-light);
+}
+
+.dark-mode .step.active .step-indicator {
+    background-color: var(--color-primary-dark);
+}
+
+.step-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background-color: #bbbbbb;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    height: 10px;
+    margin-bottom: -10px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--color-primary-light);
+    transition: width 0.5s;
+}
+
+.dark-mode .progress-bar-fill {
+
+    background-color: var(--color-primary-dark);
 }
 
 .card {

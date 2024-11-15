@@ -11,18 +11,32 @@
                 {{ session('success') }}
             </div>
         @endif
-        
+
         <form action="{{ route('empleados.store') }}" method="POST" id="empleado_form " autocomplete="off">
             @csrf
 
-            <div id="steps-header" class="steps-header d-flex justify-content-center mb-4">
-                <div class="step active">1 Datos principales</div>
-                <div class="step">2 Contrato</div>
-                <div class="step">3 Datos de pago</div>
+            <div class="progres">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="step-container">
+                <div class="step" id="step1">
+                    <div class="step-indicator">1</div>
+                    <div class="step-label">Datos principales</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-indicator">2</div>
+                    <div class="step-label">Contrato</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-indicator">3</div>
+                    <div class="step-label">Datos de pago</div>
+                </div>
+            </div>
             </div>
 
             <!-- Datos principales -->
-            <div class="form-section active">
+            <div class="form-section active" id="form1">
                 <div class="card mb-3">
                     <div class="card-header">Datos principales</div>
                     <div class="card-body">
@@ -61,6 +75,8 @@
                     </div>
                 </div>
 
+
+
                 <!-- Dirección y contacto -->
                 <div class="form-section">
                     <div class="card mb-3">
@@ -76,6 +92,12 @@
                                 </label> <select id="city" name="city" class="form-control" required>
                                 </select>
                             </div>
+
+                            {{-- <div class="form-group"> <label class="requir" for="city">Municipio
+                                </label>
+                                <div id="municipios" class="dropdown-container"></div>
+
+                            </div> --}}
 
                             <div class="form-group">
                                 <label class="requir" for="address">Dirección</label>
@@ -96,7 +118,7 @@
             </div>
 
             <!-- Contrato -->
-            <div class="form-section hidden">
+            <div class="form-section hidden" id="form2">
                 <div class="card mb-3">
                     <div class="card-header">Contrato</div>
                     <div class="card-body">
@@ -152,7 +174,9 @@
                             </select>
                         </div>
                         <div class="form-group"> <label class="requir" for="worker_type">Tipo de trabajador
-                            </label> <select id="worker_type" name="worker_type" class="form-control" required>
+                            </label>
+                            {{-- <div id="tipo_cotizacion" class="dropdown-container"></div> --}}
+                             <select id="worker_type" name="worker_type" class="form-control" required>
                             </select>
                         </div>
                         <div class="form-group"> <label class="requir" for="worker_subtype">Subtipo de trabajador
@@ -252,7 +276,7 @@
             </div>
 
             <!-- Datos de pago -->
-            <div class="form-section hidden">
+            <div class="form-section hidden" id="form3">
                 <div class="card mb-3">
                     <div class="card-header">Datos de pago</div>
                     <div class="card-body">
@@ -378,13 +402,18 @@
             </div>
 
             <!-- Acciones del formulario -->
-            <div class="form-actions">
+            {{-- <div class="form-actions">
                 <button type="button" class="btn btn-outline-primary" onclick="showPreviousSection()">Cancelar</button>
                 <button type="button" class="btn btn-primary" onclick="showNextSection()">Siguiente</button>
+            </div> --}}
+            <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-secondary" onclick="prevForm()">Atrás</button>
+                <button class="btn btn-primary" onclick="nextForm()">Siguiente</button>
             </div>
 
             <p class="mt-3">Los campos marcados con * son obligatorios</p>
         </form>
+
     </div>
 
 @endsection

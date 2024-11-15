@@ -9,7 +9,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -131,9 +131,9 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container big">
     <div class="header">
-        <h1>¡Buenas tardes, Sarah!</h1>
+        <h1>¡Buenas tardes, $pene!</h1>
         <p>Aquí puedes ver tus resúmenes y accesos rápidos.</p>
     </div>
 

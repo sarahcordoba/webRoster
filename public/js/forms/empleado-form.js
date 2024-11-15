@@ -1,46 +1,44 @@
-//mostrar la seccion siguiente
-function showNextSection() {
-    const currentSection = document.querySelector('.form-section.active');
-    const nextSection = currentSection.nextElementSibling;
-    const steps = document.querySelectorAll('#steps-header .step');
-    let currentStepIndex = Array.from(steps).findIndex(step => step.classList.contains('active'));
 
-    if (nextSection && nextSection.classList.contains('form-section')) {
-        // Cambiar sección activa
-        currentSection.classList.remove('active');
-        currentSection.classList.add('hidden');
-        nextSection.classList.remove('hidden');
-        nextSection.classList.add('active');
+let currentStep = 1;
 
-        // Avanzar al siguiente paso en el encabezado
-        if (currentStepIndex < steps.length - 1) {
-            steps[currentStepIndex].classList.remove('active');
-            steps[currentStepIndex + 1].classList.add('active');
+function nextForm() {
+    if (currentStep < 3) {
+        document.getElementById('form' + currentStep).style.display = 'none';
+        currentStep++;
+        document.getElementById('form' + currentStep).style.display = 'block';
+        updateSteps();
+        document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+    }
+}
+
+function prevForm() {
+    if (currentStep > 1) {
+        document.getElementById('form' + currentStep).style.display = 'none';
+        currentStep--;
+        document.getElementById('form' + currentStep).style.display = 'block';
+        updateSteps();
+        document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+    }
+}
+
+function updateSteps() {
+    for (let i = 1; i <= 3; i++) {
+        const stepElement = document.getElementById('step' + i);
+        if (i <= currentStep) {
+            stepElement.classList.add('active');
+        } else {
+            stepElement.classList.remove('active');
         }
     }
 }
 
-//La anteroir
-function showPreviousSection() {
-    const currentSection = document.querySelector('.form-section.active');
-    const previousSection = currentSection.previousElementSibling;
-    const steps = document.querySelectorAll('#steps-header .step');
-    let currentStepIndex = Array.from(steps).findIndex(step => step.classList.contains('active'));
+// Asegúrate de que el primer formulario sea visible y el primer paso esté activo al cargar la página
+window.onload = function() {
+    updateSteps();
+    document.getElementById('form' + currentStep).style.display = 'block'; // Mostrar el primer formulario
+    document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%'; // Barra de progreso al 33%
+};
 
-    if (previousSection && previousSection.classList.contains('form-section')) {
-        // Cambiar sección activa
-        currentSection.classList.remove('active');
-        currentSection.classList.add('hidden');
-        previousSection.classList.remove('hidden');
-        previousSection.classList.add('active');
-
-        // Retroceder al paso anterior en el encabezado
-        if (currentStepIndex > 0) {
-            steps[currentStepIndex].classList.remove('active');
-            steps[currentStepIndex - 1].classList.add('active');
-        }
-    }
-}
 
 // para que la fecha de fin de contrsto sea posterior a la fecha de inicio de ocntraro
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -123,7 +121,7 @@ async function cargarTiposC() {
         const selectElement = document.getElementById("worker_type");
         const salarioInput = document.getElementById("salary"); // Asegúrate de que este sea el id de tu campo de salario
 
-        const tiposConSalarioCero = [12, 19, 21, 42]; 
+        const tiposConSalarioCero = [12, 19, 21, 42];
 
         // Agregar las opciones dinámicamente al select
         data.forEach(item => {
@@ -143,8 +141,7 @@ async function cargarTiposC() {
     }
 }
 
-function verificarSalario(tiposConSalarioCero, selectElement, salarioInput) {
-    const tipoCotizanteId = parseInt(selectElement.value); // ID del tipo de cotizante seleccionado
+function verificarSalario(tiposConSalarioCero, tipoCotizanteId, salarioInput) {
     const salario = parseFloat(salarioInput.value); // Valor del salario ingresado
 
     // Verificamos si el tipo de cotizante tiene salario 0 y el salario no es 0
@@ -152,10 +149,10 @@ function verificarSalario(tiposConSalarioCero, selectElement, salarioInput) {
         showToast('¡Error! Los cotizantes de este tipo deben tener un salario de 0.');
         selectElement.value = ''; // Restablecer a un valor por defecto, por ejemplo, vacío
         // Si deseas que se vuelva a 'Dependiente', puedes buscar el id correspondiente y asignarlo
-        const dependienteOption = Array.from(selectElement.options).find(option => option.textContent.includes('Dependiente'));
-        if (dependienteOption) {
-            selectElement.value = dependienteOption.value;
-        }
+        // const dependienteOption = Array.from(selectElement.options).find(option => option.textContent.includes('Dependiente'));
+        // if (dependienteOption) {
+        //     selectElement.value = dependienteOption.value;
+        // }
     }
 }
 
@@ -163,12 +160,12 @@ function verificarSalario(tiposConSalarioCero, selectElement, salarioInput) {
 document.addEventListener('DOMContentLoaded', cargarTiposC);
 // Llamar a la función para cargar los municipios al cargar la página
 cargarMunicipios();
-// cargarTiposC();
 
 document.addEventListener('DOMContentLoaded', function () {
     const paymentMethodSelect = document.getElementById('payment_method');
     const transferenciaInfo = document.getElementById('transferencia_info');
     paymentMethodSelect.addEventListener('change', function () {
+        console.log(paymentMethodSelect.value)
         if (paymentMethodSelect.value === 'transferencia_bancaria') {
             transferenciaInfo.style.display = 'block';
 
@@ -177,5 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
 
 
