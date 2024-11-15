@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deduccion;
+//use Illuminate\Container\Attributes\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeduccionController extends Controller
 {
@@ -24,8 +26,12 @@ class DeduccionController extends Controller
     // Crear una nueva deducción
     public function store(Request $request)
     {
-        $deduccion = Deduccion::create($request->all());
-        return response()->json($deduccion, 201);
+        try {
+            $deduccion = Deduccion::create($request->all());
+            return response()->json($deduccion, 201);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 
     // Actualizar una deducción

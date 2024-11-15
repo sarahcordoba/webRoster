@@ -176,7 +176,7 @@
                         console.log("Nominas creadas:", data);
                         const modal = bootstrap.Modal.getInstance(document.getElementById('liquidacionModal'));
                         modal.hide();
-                        location.reload();
+                        //location.reload();
 
                         // Aquí puedes agregar código para actualizar la tabla o la vista después de la creación
                     })

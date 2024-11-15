@@ -15,7 +15,7 @@ use App\Models\Comision;
 use App\Models\ComisionNomina;
 use App\Models\DeduccionNomina;
 
-Route::get('/', [HomeController::class, 'index']);
+//Route::get('/', [HomeController::class, 'index']);
 
 Route::resource('departamentos', DepartamentoController::class);
 Route::resource('empleados', EmpleadoController::class);
@@ -40,6 +40,11 @@ Route::get('/liquidar/nominas/{id}', [NominaController::class, 'liquidar'])->nam
 
 
 
+Route::post('api/add/deducciones', [DeduccionController::class, 'store']);
+Route::post('api/add/deduccionesnomina', [DeduccionNominaController::class, 'store']);
+
+Route::post('api/add/comisiones', [ComisionController::class, 'store']);
+Route::post('api/add/comisionesnomina', [ComisionNominaController::class, 'store']);
 
 Route::delete('api/delete/liquidacion/{id}', [LiquidacionController::class, 'destroy']);
 Route::delete('api/delete/deduccionnomina/{nomina_id}/{deduccion_id}', [DeduccionNominaController::class, 'destroy'])->name('deduccionnomina.delete');
@@ -53,6 +58,9 @@ Route::post('api/add/nomina', [NominaController::class, 'store']);
 
 
 Route::get('/', function () {
+    return view('dashboard');
+});
+Route::get('/dashboard', function () {
     return view('dashboard');
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DeduccionNomina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeduccionNominaController extends Controller
 {
@@ -26,8 +27,12 @@ class DeduccionNominaController extends Controller
     // Asignar una deducción a una nómina
     public function store(Request $request)
     {
-        $deduccionNomina = DeduccionNomina::create($request->all());
-        return response()->json($deduccionNomina, 201);
+        try{
+            $deduccionNomina = DeduccionNomina::create($request->all());
+            return response()->json($deduccionNomina, 201);
+        }catch(\Exception $e){
+            Log::error($e->getMessage());
+        }
     }
 
     // Actualizar una deducción asignada a una nómina
