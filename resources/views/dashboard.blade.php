@@ -128,8 +128,6 @@
             font-size: 16px;
         }
     </style>
-</head>
-<body>
 
 <div class="container big">
     <div class="header">
@@ -197,8 +195,4 @@
         <p>Gráfica (Placeholder)</p>
     </div>
 </div>
-
-</body>
-</html>
-
 @endsection

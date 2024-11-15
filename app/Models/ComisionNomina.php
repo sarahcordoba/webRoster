@@ -19,6 +19,7 @@ class ComisionNomina extends Model
     protected $fillable = [
         'nomina_id',
         'comision_id',
+        'esporcentaje',
         'monto',
     ];
 

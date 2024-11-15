@@ -19,6 +19,7 @@ class DeduccionNomina extends Model
     protected $fillable = [
         'nomina_id',
         'deduccion_id',
+        'esporcentaje',
         'monto',
     ];
 

@@ -15,6 +15,9 @@ class CreateComisionesNominaTable extends Migration
             $table->primary(['nomina_id', 'comision_id']);
             $table->foreign('nomina_id')->references('id')->on('nominas')->onDelete('cascade');
             $table->foreign('comision_id')->references('id')->on('comisiones')->onDelete('cascade');
+
+            $table->boolean('esporcentaje')->default(null);
+            $table->decimal('monto', 10, 2);
         });
     }
 

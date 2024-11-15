@@ -3,6 +3,8 @@
 @section('title', 'Lq')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <div class="container">
     <h1>Detalles de la Liquidación</h1>
     <div class="row mt-4" style="display:flex;">
@@ -27,19 +29,19 @@
         <ul class="list-group list-group-horizontal list-group-flush">
             <li class="list-group-item d-flex flex-column">
                 <strong>Empleados</strong>
-                <span>x</span>
+                <span>{{ count($nominas)}}</span>
             </li>
             <li class="list-group-item d-flex flex-column">
-                <strong>Salario:</strong> {{ $liquidacion->salario }}
+                <strong>Salario:</strong> ${{ number_format($liquidacion->salario,2) }}
             </li>
             <li class="list-group-item d-flex flex-column">
-                <strong>Total deducciones:</strong> {{ $liquidacion->total_deducciones }}
+                <strong>Total deducciones:</strong> ${{ number_format($liquidacion->total_deducciones,2) }}
             </li>
             <li class="list-group-item d-flex flex-column">
-                <strong>Total comisiones:</strong> {{ $liquidacion->total_comisiones }}
+                <strong>Total comisiones:</strong> ${{ number_format($liquidacion->total_comisiones,2) }}
             </li>
             <li class="list-group-item d-flex flex-column">
-                <strong>Total:</strong> {{ $liquidacion->total }}
+                <strong>Total:</strong> ${{ number_format($liquidacion->total,2) }}
             </li>
         </ul>
     </div>
@@ -69,16 +71,17 @@
             <tbody>
                 @foreach($nominas as $nomina)
                 <tr>
-                    <td>{{ $nomina->empleado->nombre ?? 'N/A' }}</td> <!-- Asumiendo que Nomina tiene relación con Empleado -->
+                    <td>{{ $nomina->empleado->primer_nombre}} {{ $nomina->empleado->segundo_nombre}} {{ $nomina->empleado->primer_apellido}} {{ $nomina->empleado->segundo_apellido}}</td> <!-- Asumiendo que Nomina tiene relación con Empleado -->
                     <td>{{ $nomina->id }}</td>
-                    <td>{{ number_format($nomina->salario, 2) }}</td>
-                    <td>{{ number_format($nomina->deducciones, 2) }}</td>
-                    <td>{{ number_format($nomina->comisiones, 2) }}</td>
-                    <td>{{ number_format($nomina->total, 2) }}</td>
+                    <td>${{ number_format($nomina->salario_base, 2) }}</td>
+                    <td>${{ number_format($nomina->total_deducciones, 2) }}</td>
+                    <td>${{ number_format($nomina->total_comisiones, 2) }}</td>
+                    <td>${{ number_format($nomina->total, 2) }}</td>
                     <td>
                         <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Ver Detalles</a>
-                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Ver Detalles</a>
-                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Ver Detalles</a>
+                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Editar</a>
+                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Liquidar</a>
+                        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Eliminar</a>
                     </td>
                 </tr>
                 @endforeach
@@ -101,7 +104,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Seleccionar todos</th>
+                                <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Salario</th>
                                 <th scope="col">Identificación</th>
@@ -111,7 +114,7 @@
                             @foreach($empleados as $empleado)
                             <tr>
                                 <td><input type="checkbox" class="employee-checkbox" value="{{ $empleado->id }}"></td>
-                                <td>{{ $empleado->nombre }}</td>
+                                <td>{{ $empleado->primer_nombre }} {{ $empleado->segundo_nombre }} {{ $empleado->primer_apellido }} {{ $empleado->segundo }}</td>
                                 <td>{{ number_format($empleado->salario, 2) }}</td>
                                 <td>{{ $empleado->identificacion }}</td>
                             </tr>
@@ -149,16 +152,18 @@
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const idLiquidacion = document.querySelector('[data-bs-target="#liquidacionModal"]').getAttribute('data-liquidacion-id');
-
             // Enviar empleados seleccionados al backend
-            fetch('/api/add/nominas', {
+
+            //console.log(selectedEmployees);
+            selectedEmployees.forEach((employee) => {
+                fetch('/api/add/nomina', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken
                     },
                     body: JSON.stringify({
-                        empleados: selectedEmployees,
+                        empleado_id: employee,
                         idLiquidacion: idLiquidacion
                     })
                 })
@@ -170,6 +175,8 @@
                     // Aquí puedes agregar código para actualizar la tabla o la vista después de la creación
                 })
                 .catch(error => console.error("Error al crear las nóminas:", error));
+            });
+            
         }
     </script>
     @endsection
