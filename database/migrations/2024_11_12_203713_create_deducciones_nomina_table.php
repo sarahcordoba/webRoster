@@ -11,11 +11,13 @@ class CreateDeduccionesNominaTable extends Migration
         Schema::create('deducciones_nomina', function (Blueprint $table) {
             $table->unsignedBigInteger('nomina_id');
             $table->unsignedBigInteger('deduccion_id');
-            $table->decimal('monto', 10, 2); // Monto específico de la deducción
 
             $table->primary(['nomina_id', 'deduccion_id']);
             $table->foreign('nomina_id')->references('id')->on('nominas')->onDelete('cascade');
             $table->foreign('deduccion_id')->references('id')->on('deducciones')->onDelete('cascade');
+
+            $table->boolean('esporcentaje')->default(false);
+            $table->decimal('monto', 10, 2);
         });
     }
 

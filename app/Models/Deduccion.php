@@ -10,12 +10,14 @@ class Deduccion extends Model
     use HasFactory;
 
     // Nombre de la tabla
-    protected $table = 'deduccion';
+    protected $table = 'deducciones';
 
     // Campos asignables masivamente
     protected $fillable = [
         'tipo',
         'descripcion',
+        'esporcentaje',
         'monto',
+        'obligatorio',
     ];
 }

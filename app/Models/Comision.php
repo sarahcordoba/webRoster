@@ -10,12 +10,14 @@ class Comision extends Model
     use HasFactory;
 
     // Nombre de la tabla
-    protected $table = 'comision';
+    protected $table = 'comisiones';
 
     // Campos asignables masivamente
     protected $fillable = [
         'tipo',
         'descripcion',
+        'esporcentaje',
         'monto',
+        'obligatorio',
     ];
 }

@@ -5,87 +5,130 @@
 @section('content')
 <div class="container">
     <h1>Detalles de la Liquidación</h1>
-    <div class="row mt-4" style="display:flex;">
-        <div class="col-md-6">
-            <div class="card" style="height: 6rem">
-                <div class="card-body text-center">
-                    <p><strong> Progreso</strong> 10%</p>
 
-                </div>
+    <div class="card" style="width: 100%; height: fit-content">
+        <div class="card-body text-center">
+            <p style="font-size:xx-large"><strong> Colilla de pago</strong></p>
+            <p style="font-size:x-large"><strong>Resumen del Pago</strong></p>
+
+            <div class="card">
+                <style>
+                    p {
+                        margin-bottom: 0;
+                    }
+                </style>
+                <p>datos de la empresa</p>
+                <p>nit</p>
+                <p>direccion</p>
+                <p>correo</p>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card" style="height: 6rem">
+            <div class="card">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Periodo de liquidacion</strong> {{ $liquidacion->fecha_inicio }} - {{ $liquidacion->fecha_fin }}</li>
-                    <li class="list-group-item"><strong>Estado:</strong> {{ $liquidacion->estado }}</li>
+                    <li class="list-group-item"><strong>Empleado:</strong> {{ $nomina->empleado->primer_nombre}} {{ $nomina->empleado->segundo_nombre}} {{ $nomina->empleado->primer_apellido}} {{ $nomina->empleado->segundo_apellido}}</li>
+                    <li class="list-group-item"><strong>Identificacion:</strong> {{ $nomina->empleado->id}}</li>
+                    <li class="list-group-item"><strong>Periodo de liquidacion:</strong> {{ $nomina->liquidacion->fecha_inicio }} - {{ $nomina->liquidacion->fecha_fin }}</li>
+                    <li class="list-group-item"><strong>Estado:</strong> {{ $nomina->estado }}</li>
+                </ul>
+            </div>
+            <div class="card">
+                <ul class="list-group list-group-horizontal list-group-flush">
+                    <li class="list-group-item d-flex flex-column">
+                        <strong>Salario:</strong> ${{ number_format($nomina->salario_base,2) }}
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
+                        <strong>Total deducciones:</strong> ${{ number_format($nomina->total_deducciones,2) }}
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
+                        <strong>Total comisiones:</strong> ${{ number_format($nomina->total_comisiones,2) }}
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
+                        <strong>Total:</strong> ${{ number_format($nomina->total,2) }}
+                    </li>
+                </ul>
+            </div>
+
+            <p style="font-size:x-large"><strong>Comisiones</strong></p>
+
+            <div class="card">
+                <ul class="list-group">
+                    @foreach($comisionesAplicadas as $comisiona)
+                    <ul class="list-group list-group-horizontal list-group-flush">
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Tipo</strong> {{ $comisiona->comision->tipo }}
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Descripción</strong> {{ $comisiona->comision->descripcion }}
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Porcentaje</strong>
+                            @if($comisiona->comision->esporcentaje)
+                            {{ $comisiona->comision->monto }}%
+                            @else
+                            N/A
+                            @endif
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Monto</strong>
+                            @if($comisiona->comision->esporcentaje)
+                            {{-- Calcula el monto como el porcentaje del salario --}}
+                            ${{ number_format($nomina->empleado->salario * ($comisiona->comision->monto / 100), 2) }}
+                            @else
+                            {{-- Muestra el monto directamente si no es un porcentaje --}}
+                            ${{ number_format($comisiona->comision->monto, 2) }}
+                            @endif
+                        </li>
+                    </ul>
+                    @endforeach
+
+                </ul>
+            </div>
+
+            <p style="font-size:x-large"><strong>Deducciones</strong></p>
+
+            <div class="card">
+                <ul class="list-group">
+                    @foreach($deduccionesAplicadas as $deducciona)
+                    <ul class="list-group list-group-horizontal list-group-flush">
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Tipo</strong> {{ $deducciona->deduccion->tipo }}
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Descripción</strong> {{ $deducciona->deduccion->descripcion }}
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Porcentaje</strong>
+                            @if($deducciona->deduccion->esporcentaje)
+                            {{ $deducciona->deduccion->monto }}%
+                            @else
+                            N/A
+                            @endif
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <strong>Monto</strong>
+                            @if($deducciona->deduccion->esporcentaje)
+                            {{-- Calcula el monto como el porcentaje del salario --}}
+                            ${{ number_format($nomina->empleado->salario * ($deducciona->deduccion->monto / 100), 2) }}
+                            @else
+                            {{-- Muestra el monto directamente si no es un porcentaje --}}
+                            ${{ number_format($deducciona->deduccion->monto, 2) }}
+                            @endif
+                        </li>
+                    </ul>
+                    @endforeach
+
                 </ul>
             </div>
         </div>
     </div>
-    <div class="card" style="width: 100%;">
-        <ul class="list-group list-group-horizontal list-group-flush">
-            <li class="list-group-item d-flex flex-column">
-                <strong>Empleados</strong>
-                <span>x</span>
-            </li>
-            <li class="list-group-item d-flex flex-column">
-                <strong>Salario:</strong> {{ $liquidacion->salario }}
-            </li>
-            <li class="list-group-item d-flex flex-column">
-                <strong>Total deducciones:</strong> {{ $liquidacion->total_deducciones }}
-            </li>
-            <li class="list-group-item d-flex flex-column">
-                <strong>Total comisiones:</strong> {{ $liquidacion->total_comisiones }}
-            </li>
-            <li class="list-group-item d-flex flex-column">
-                <strong>Total:</strong> {{ $liquidacion->total }}
-            </li>
-        </ul>
-    </div>
-    <div class="container my-5">
-        <h1 class="titulito">Empleados</h1>
-        <div class="titlebutton">
-            <p>Gestiona la información de tus empleados/as que vas a tener en cuenta para liquidar la nómina de este período.</p>
-            <!-- Botón para abrir el modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#liquidacionModal">
-                Agregar empleado
-            </button>
-        </div>
-        <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .6rem;">Filtar
-        </button>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Id</th>
-                    <th scope="col">Salarios</th>
-                    <th scope="col">Deducciones</th>
-                    <th scope="col">Comisiones</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">hola</th>
-                    <td>1234567</td>
-                    <td>10000000</td>
-                    <td>567000</td>
-                    <td>230000</td>
-                    <td>99999999</td>
-                    <td><button type="button" class="btn btn-secondary">Liquidar
-                        </button><button type="button" class="btn btn-secondary">Editar
-                        </button>
-                        <button type="button" class="btn btn-secondary">Ver
-                        </button>
-                    </td>
+    <div style="display:flex; justify-content: space-between;">
 
-                </tr>
-            </tbody>
-        </table>
+        <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-secondary">Cancelar</a>
+        <div style="display:flex;  gap: .5rem;">
+            <a href="{{ route('nominas.edit', $nomina->id) }}" class="btn btn-primary">Editar</a>
+
+            <a href="{{ route('nominas.show', $nomina->id) }}" class="btn btn-primary">Liquidar</a>
+        </div>
     </div>
 
 </div>
 @endsection
-<script type="text/javascript" src="{{ asset('js/forms/empleado-form.js') }}"></script>

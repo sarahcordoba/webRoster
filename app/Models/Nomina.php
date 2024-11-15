@@ -11,6 +11,7 @@ class Nomina extends Model
 
     // Nombre de la tabla
     protected $table = 'nominas';
+    public $timestamps = false; // Desactiva timestamps
 
     // Campos asignables masivamente
     protected $fillable = [

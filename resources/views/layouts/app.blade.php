@@ -42,15 +42,24 @@
             {{-- lista de vainos --}}
             <ul class="nav-list">
                 @foreach ($menuItems as $item)
-                    <li>
-                        <a href="{{ $item['url'] }}">
-                            <i class="{{ $item['icon'] }}"></i> {{ $item['name'] }}
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ $item['url'] }}">
+                        <i class="{{ $item['icon'] }}"></i> {{ $item['name'] }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
             {{-- botón de modo oscuro --}}
             <button id="modeToggle" class="mode-toggle" onclick="toggleMode()">🌙 Modo Oscuro</button>
+            <!-- Add a form that will submit the logout request -->
+            <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+
+            <!-- Button to trigger the logout form -->
+            <button id="modeToggle" class="mode-toggle" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                Salir
+            </button>
         </div>
 
 
