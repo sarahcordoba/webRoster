@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     numCuentaInput.addEventListener('input', () => {
-        numCuentaInput.value = numCuentaInput.value.replace(/[^0-9]/g, '').slice(0, 4);
+        numCuentaInput.value = numCuentaInput.value.replace(/[^0-9]/g, '').slice(0, 25);
     });
 
     salaryInput.addEventListener('input', () => {

@@ -43,5 +43,7 @@
                 <div class="value">0</div>
             </div>
         </div>
+
+        
     </div>
 @endsection

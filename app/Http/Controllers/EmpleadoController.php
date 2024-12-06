@@ -6,6 +6,8 @@ use App\Models\Empleado;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth; // Asegúrate de importar el facade Auth
+
 
 class EmpleadoController extends Controller
 {
@@ -26,13 +28,15 @@ class EmpleadoController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            // Valida los datos
+        // Valida los datos
+        $user = Auth::user();
+        if ($user) {
             $validatedData = $request->validate([
+                'idEmpleador' => Auth::user()->id,  // Asumiendo que el 'idEmpleador' es el id del usuario autenticado
                 'primer_nombre' => 'required|string|max:255',
                 'segundo_nombre' => 'nullable|string|max:255',
                 'primer_apellido' => 'required|string|max:255',
-                'segundo_apellido' => 'required|string|max:255',
+                'segundo_apellido' => 'nullable|string|max:255',
                 'tipo_identificacion' => 'required|string',
                 'numero_identificacion' => 'required|numeric|unique:empleados,numero_identificacion',
                 'municipio' => 'required|string',
@@ -55,9 +59,9 @@ class EmpleadoController extends Controller
                 'area' => 'required|string',
                 'dias_vacaciones' => 'required|numeric|min:0',
                 'metodo_pago' => 'required|string',
-                'banco' => 'required|string',
-                'numero_cuenta' => 'required|string',
-                'tipo_cuenta' => 'required|string',
+                'banco' => 'nullable|string',
+                'numero_cuenta' => 'nullable|string',
+                'tipo_cuenta' => 'nullable|string',
                 'eps' => 'required|string',
                 'caja_compensacion' => 'required|string',
                 'fondo_pensiones' => 'required|string',
@@ -65,25 +69,22 @@ class EmpleadoController extends Controller
             ], [
                 'correo.unique' => 'El correo electrónico ya está registrado. Por favor, ingrese otro.'
             ]);
-    
-            // Crea el registro en la base de datos
-            $empleado = Empleado::create($validatedData);
-    
-            // Si todo fue exitoso, retorna una respuesta exitosa
-            return response()->json([
-                'message' => 'Empleado creado correctamente',
-                'empleado' => $empleado,
-            ]);
-        } catch (\Exception $e) {
-            // Captura cualquier excepción y muestra el mensaje de error
-            return response()->json([
-                'error' => 'Hubo un error al guardar el empleado.',
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(), // Muestra la traza del error para ayudar en la depuración
-            ], 500);
+
+            // Agregar el idEmpleador del usuario autenticado
+            $validatedData['idEmpleador'] = Auth::id();  // Asignar el idEmpleador
+
+            // Crear el nuevo empleado con los datos validados
+            Empleado::create($validatedData);
+
+            // Redirigir a la página de listado de empleados con un mensaje de éxito
+            return redirect()->route('empleados.index') // Cambia a la ruta que desees
+                ->with('success', 'Empleado creado correctamente');
+        } else {
+            return response()->json(['error' => 'Usuario no autenticado.'], 401);
         }
     }
-    
+
+
     // Mostrar un empleado específico
     public function show($id)
     {
@@ -149,9 +150,9 @@ class EmpleadoController extends Controller
             'area' => 'required|string',
             'dias_vacaciones' => 'required|numeric|min:0',
             'metodo_pago' => 'required|string',
-            'banco' => 'required|string',
-            'numero_cuenta' => 'required|string',
-            'tipo_cuenta' => 'required|string',
+            'banco' => 'nullable|string',
+            'numero_cuenta' => 'nullable|string',
+            'tipo_cuenta' => 'nullable|string',
             'eps' => 'required|string',
             'caja_compensacion' => 'required|string',
             'fondo_pensiones' => 'required|string',

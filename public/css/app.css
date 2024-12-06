@@ -225,8 +225,12 @@ body.dark-mode .mode-toggle {
     text-align: center;
 }
 
-.container-liquidaciones{
-    width: 1000px;
+.container-liquidaciones-ver{
+    width: 56.25rem;
+}
+
+.card-liquidaciones{
+    width: 56.25rem;
 }
 
 /* pantallas pequeñas */
@@ -242,5 +246,3 @@ body.dark-mode .mode-toggle {
     display: flex;
     justify-content: space-between;
 }
-
-

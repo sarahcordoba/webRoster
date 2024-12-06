@@ -56,7 +56,7 @@
         </div>
         <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .6rem;">Filtar
         </button>
-        <table class="table">
+        <table class="table table table-hover table-bordered table-responsive">
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>

@@ -106,17 +106,22 @@
 
                             <div class="form-group">
                                 <label class="requir" for="direccion">Dirección</label>
-                                <input type="text" id="direccion" name="direccion" class="form-control" required>
+                                <input type="text" id="direccion" name="direccion" class="form-control" 
+                                       value="{{ old('direccion', $empleado->direccion) }}" required>
                             </div>
+                            
                             <div class="form-group">
                                 <label class="requir" for="celular">Celular</label>
-                                <input type="text" id="celular" name="celular" class="form-control">
+                                <input type="text" id="celular" name="celular" class="form-control"
+                                       value="{{ old('celular', $empleado->celular) }}">
                             </div>
+                            
                             <div class="form-group">
                                 <label class="requir" for="correo">Correo electrónico</label>
-                                <input type="email" id="correo" name="correo" class="form-control" required>
+                                <input type="email" id="correo" name="correo" class="form-control" 
+                                       value="{{ old('correo', $empleado->correo) }}" required>
                             </div>
-                            {{-- </div> --}}
+                            
                         </div>
                     </div>
                 </div>
@@ -128,130 +133,141 @@
                     <div class="card-header">Contrato</div>
                     <div class="card-body">
                         {{-- <div class="row"> --}}
-                        <div class="form-group"> <label class="requir" for="tipo_contrato">Tipo de contrato
-                            </label> <select id="tipo_contrato" name="tipo_contrato" class="form-control" required>
-                                <option value="termino_fijo">Término Fijo</option>
-                                <option value="termino_indefinido">Término Indefinido</option>
-                                <option value="labor_obra">Labor u obra</option>
-                                <option value="aprendizaje">Aprendizaje</option>
-                                {{-- <option value="practica">Práctica</option>
-                                <option value="pasantia">Pasantía</option> --}}
-                            </select>
-                        </div>
-                        <div class="row_d">
                             <div class="form-group">
-                                <label class="requir" for="fecha_contratacion">Fecha de contratación</label>
-                                <input type="date" id="fecha_contratacion" name="fecha_contratacion"
-                                    class="form-control" required>
+                                <label class="requir" for="tipo_contrato">Tipo de contrato</label>
+                                <select id="tipo_contrato" name="tipo_contrato" class="form-control" required>
+                                    <option value="termino_fijo" {{ old('tipo_contrato', $empleado->tipo_contrato) == 'termino_fijo' ? 'selected' : '' }}>Término Fijo</option>
+                                    <option value="termino_indefinido" {{ old('tipo_contrato', $empleado->tipo_contrato) == 'termino_indefinido' ? 'selected' : '' }}>Término Indefinido</option>
+                                    <option value="labor_obra" {{ old('tipo_contrato', $empleado->tipo_contrato) == 'labor_obra' ? 'selected' : '' }}>Labor u obra</option>
+                                    <option value="aprendizaje" {{ old('tipo_contrato', $empleado->tipo_contrato) == 'aprendizaje' ? 'selected' : '' }}>Aprendizaje</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="requir" for="fecha_fin_contrato">Fecha de fin de contrato</label>
-                                <input type="date" id="fecha_fin_contrato" name="fecha_fin_contrato"
-                                    class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row_d">
-                            <div class="form-group"> <label class="requir" for="salario">Salario</label>
-                                <div class="input-group"> <span class="input-group-text">$</span> <input type="text"
-                                        id="salario" name="salario" class="form-control" required>
+                            
+                            <div class="row_d">
+                                <div class="form-group">
+                                    <label class="requir" for="fecha_contratacion">Fecha de contratación</label>
+                                    <input type="date" id="fecha_contratacion" name="fecha_contratacion" class="form-control" value="{{ old('fecha_contratacion', $empleado->fecha_contratacion) }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="requir" for="fecha_fin_contrato">Fecha de fin de contrato</label>
+                                    <input type="date" id="fecha_fin_contrato" name="fecha_fin_contrato" class="form-control" value="{{ old('fecha_fin_contrato', $empleado->fecha_fin_contrato) }}" required>
                                 </div>
                             </div>
-                            <div class="form-group form-group-radio">
-                                <label class="requir" for="salario_integral">Salario Integral</label>
-                                <div>
-                                    <div class="form-check form-check-inline radios ">
-                                        <input class="form-check-input" type="radio" name="salario_integral"
-                                            id="salario_integral_si" value="1">
-                                        <label class="form-check-label" for="salario_integral_si">Sí</label>
+                            
+                            <div class="row_d">
+                                <div class="form-group">
+                                    <label class="requir" for="salario">Salario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" id="salario" name="salario" class="form-control" value="{{ old('salario', $empleado->salario) }}" required>
                                     </div>
-                                    <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="salario_integral"
-                                            id="salario_integral_no" value="0" checked>
-                                        <label class="form-check-label" for="salario_integral_no">No</label>
+                                </div>
+                                
+                                <div class="form-group form-group-radio">
+                                    <label class="requir" for="salario_integral">Salario Integral</label>
+                                    <div>
+                                        <div class="form-check form-check-inline radios">
+                                            <input class="form-check-input" type="radio" name="salario_integral" id="salario_integral_si" value="1" {{ old('salario_integral', $empleado->salario_integral) == '1' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="salario_integral_si">Sí</label>
+                                        </div>
+                                        <div class="form-check form-check-inline radios">
+                                            <input class="form-check-input" type="radio" name="salario_integral" id="salario_integral_no" value="0" {{ old('salario_integral', $empleado->salario_integral) == '0' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="salario_integral_no">No</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="form-group"> <label class="requir" for="frecuencia_pago">Frecuencia de pago
-                            </label> <select id="frecuencia_pago" name="frecuencia_pago" class="form-control" required>
-                                <option value="mensual">Mensual</option>
-                                <option value="quincenal">Quincenal</option>
-                            </select>
-                        </div>
-                        <div class="form-group"> <label class="requir" for="tipo_trabajador">Tipo de trabajador
-                            </label>
-                            {{-- <div id="tipo_cotizacion" class="dropdown-container"></div> --}}
-                            <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
-                            </select>
-                        </div>
-                        <div class="form-group"> <label class="requir" for="subtipo_trabajador">Subtipo de trabajador
-                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control"
-                                required>
-                                <option value="no_aplica">No aplica</option>
-                                <option value="dependiente_pensionado_vejez">Dependiente pensionado por vejez activa
-                                </option>
-                            </select>
-                        </div>
+                            
+                            <div class="form-group">
+                                <label class="requir" for="frecuencia_pago">Frecuencia de pago</label>
+                                <select id="frecuencia_pago" name="frecuencia_pago" class="form-control" required>
+                                    <option value="mensual" {{ old('frecuencia_pago', $empleado->frecuencia_pago) == 'mensual' ? 'selected' : '' }}>Mensual</option>
+                                    <option value="quincenal" {{ old('frecuencia_pago', $empleado->frecuencia_pago) == 'quincenal' ? 'selected' : '' }}>Quincenal</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="requir" for="tipo_trabajador">Tipo de trabajador</label>
+                                <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
+                                    <!-- Aquí puedes cargar las opciones dinámicamente si es necesario -->
+                                    <option value="1" {{ old('tipo_trabajador', $empleado->tipo_trabajador) == '1' ? 'selected' : '' }}>Tipo 1</option>
+                                    <option value="2" {{ old('tipo_trabajador', $empleado->tipo_trabajador) == '2' ? 'selected' : '' }}>Tipo 2</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="requir" for="subtipo_trabajador">Subtipo de trabajador</label>
+                                <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control" required>
+                                    <option value="no_aplica" {{ old('subtipo_trabajador', $empleado->subtipo_trabajador) == 'no_aplica' ? 'selected' : '' }}>No aplica</option>
+                                    <option value="dependiente_pensionado_vejez" {{ old('subtipo_trabajador', $empleado->subtipo_trabajador) == 'dependiente_pensionado_vejez' ? 'selected' : '' }}>
+                                        Dependiente pensionado por vejez activa
+                                    </option>
+                                    <!-- Agregar más opciones si es necesario -->
+                                </select>
+                            </div>
+                            
                         <div class="row_d">
                             <div class="form-group form-group-radio">
                                 <label class="requir" for="auxilio_transporte">Auxilio de transporte</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="auxilio_transporte"
-                                            id="auxilio_transporte_si" value="1">
+                                        <input class="form-check-input" type="radio" name="auxilio_transporte" id="auxilio_transporte_si" value="1" 
+                                            @if(old('auxilio_transporte', $empleado->auxilio_transporte) == 1) checked @endif>
                                         <label class="form-check-label" for="auxilio_transporte_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="auxilio_transporte"
-                                            id="auxilio_transporte_no" value="0" checked>
+                                        <input class="form-check-input" type="radio" name="auxilio_transporte" id="auxilio_transporte_no" value="0" 
+                                            @if(old('auxilio_transporte', $empleado->auxilio_transporte) == 0) checked @endif>
                                         <label class="form-check-label" for="auxilio_transporte_no">No</label>
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div class="form-group form-group-radio">
                                 <label class="requir" for="alto_riesgo">Alto riesgo</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="alto_riesgo"
-                                            id="alto_riesgo_si" value="1">
+                                        <input class="form-check-input" type="radio" name="alto_riesgo" id="alto_riesgo_si" value="1" 
+                                            @if(old('alto_riesgo', $empleado->alto_riesgo) == 1) checked @endif>
                                         <label class="form-check-label" for="alto_riesgo_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="alto_riesgo"
-                                            id="alto_riesgo_no" value="0" checked>
+                                        <input class="form-check-input" type="radio" name="alto_riesgo" id="alto_riesgo_no" value="0" 
+                                            @if(old('alto_riesgo', $empleado->alto_riesgo) == 0) checked @endif>
                                         <label class="form-check-label" for="alto_riesgo_no">No</label>
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div class="form-group form-group-radio">
                                 <label class="requir" for="sabado_laboral">¿Sábado laboral?</label>
                                 <div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="sabado_laboral"
-                                            id="sabado_laboral_si" value="1">
+                                        <input class="form-check-input" type="radio" name="sabado_laboral" id="sabado_laboral_si" value="1" 
+                                            @if(old('sabado_laboral', $empleado->sabado_laboral) == 1) checked @endif>
                                         <label class="form-check-label" for="sabado_laboral_si">Sí</label>
                                     </div>
                                     <div class="form-check form-check-inline radios">
-                                        <input class="form-check-input" type="radio" name="sabado_laboral"
-                                            id="sabado_laboral_no" value="0" checked>
+                                        <input class="form-check-input" type="radio" name="sabado_laboral" id="sabado_laboral_no" value="0" 
+                                            @if(old('sabado_laboral', $empleado->sabado_laboral) == 0) checked @endif>
                                         <label class="form-check-label" for="sabado_laboral_no">No</label>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
-                        <div class="form-group"> <label class="requir" for="nivel_riesgo" class="R">Nivel de
-                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control"
-                                required>
-                                <option value="I">Riesgo I - 0.522%</option>
-                                <option value="II">Riesgo I - 1.044%</option>
-                                <option value="III">Riesgo III - 2.436%</option>
-                                <option value="IV">Riesgo IV - 4.350%</option>
-                                <option value="V">Riesgo V - 6.960%</option>
+                        <div class="form-group">
+                            <label class="requir" for="nivel_riesgo" class="R">Nivel de riesgo</label>
+                            <select id="nivel_riesgo" name="nivel_riesgo" class="form-control" required>
+                                <option value="I" @if(old('nivel_riesgo', $empleado->nivel_riesgo) == 'I') selected @endif>Riesgo I - 0.522%</option>
+                                <option value="II" @if(old('nivel_riesgo', $empleado->nivel_riesgo) == 'II') selected @endif>Riesgo II - 1.044%</option>
+                                <option value="III" @if(old('nivel_riesgo', $empleado->nivel_riesgo) == 'III') selected @endif>Riesgo III - 2.436%</option>
+                                <option value="IV" @if(old('nivel_riesgo', $empleado->nivel_riesgo) == 'IV') selected @endif>Riesgo IV - 4.350%</option>
+                                <option value="V" @if(old('nivel_riesgo', $empleado->nivel_riesgo) == 'V') selected @endif>Riesgo V - 6.960%</option>
                             </select>
-                        </div>
+                        </div>                        
 
 
                         {{-- </div> --}}
@@ -264,20 +280,25 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="requir" for="cargo">Cargo</label>
-                                <input type="text" id="cargo" name="cargo" class="form-control" required>
+                                <input type="text" id="cargo" name="cargo" class="form-control" 
+                                       value="{{ old('cargo', $empleado->cargo) }}" required>
                             </div>
-                            <div class="form-group"> <label class="requir" for="area">Área</label> <select
-                                    id="area" name="area" class="form-control" required>
-                                    <option value="administrativa">Administrativa</option>
-                                    <option value="operativa">Operativa</option>
-                                    <option value="ventas">Ventas</option>
+                            
+                            <div class="form-group">
+                                <label class="requir" for="area">Área</label>
+                                <select id="area" name="area" class="form-control" required>
+                                    <option value="administrativa" @if(old('area', $empleado->area) == 'administrativa') selected @endif>Administrativa</option>
+                                    <option value="operativa" @if(old('area', $empleado->area) == 'operativa') selected @endif>Operativa</option>
+                                    <option value="ventas" @if(old('area', $empleado->area) == 'ventas') selected @endif>Ventas</option>
                                 </select>
                             </div>
+                            
                             <div class="form-group">
                                 <label class="requir" for="dias_vacaciones">Días de vacaciones acumuladas</label>
                                 <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control"
-                                    required>
+                                       value="{{ old('dias_vacaciones', $empleado->dias_vacaciones) }}" required>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -289,14 +310,16 @@
                 <div class="card mb-3">
                     <div class="card-header">Datos de pago</div>
                     <div class="card-body">
-                        <div class="form-group"> <label class="requir" for="metodo_pago">Método de pago
-                            </label> <select id="metodo_pago" name="metodo_pago" class="form-control" required>
-                                <option value="pago_efectivo">Pago en efectivo</option>
-                                <option value="transferencia_bancaria">Transferencia bancaria</option>
-                                <option value="cheque_bancario">Cheque bancario</option>
-                                <option value="pago_especie">Pago en especie (bonos o vales)</option>
+                        <div class="form-group">
+                            <label class="requir" for="metodo_pago">Método de pago</label>
+                            <select id="metodo_pago" name="metodo_pago" class="form-control" required>
+                                <option value="pago_efectivo" @if(old('metodo_pago', $empleado->metodo_pago) == 'pago_efectivo') selected @endif>Pago en efectivo</option>
+                                <option value="transferencia_bancaria" @if(old('metodo_pago', $empleado->metodo_pago) == 'transferencia_bancaria') selected @endif>Transferencia bancaria</option>
+                                <option value="cheque_bancario" @if(old('metodo_pago', $empleado->metodo_pago) == 'cheque_bancario') selected @endif>Cheque bancario</option>
+                                <option value="pago_especie" @if(old('metodo_pago', $empleado->metodo_pago) == 'pago_especie') selected @endif>Pago en especie (bonos o vales)</option>
                             </select>
                         </div>
+                        
 
                         <div id="transferencia_info" style="display: none;">
                             <div class="form-group">
@@ -348,16 +371,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="numero_cuenta">Número de cuenta</label>
-                                <input type="text" id="numero_cuenta" name="numero_cuenta" class="form-control">
+                                <input type="text" id="numero_cuenta" name="numero_cuenta" class="form-control" 
+                                       value="{{ old('numero_cuenta', $empleado->numero_cuenta) }}">
                             </div>
+                            
                             <div class="form-group">
                                 <label for="tipo_cuenta">Tipo de cuenta</label>
                                 <select id="tipo_cuenta" name="tipo_cuenta" class="form-control">
-                                    <option value="corriente">Corriente</option>
-                                    <option value="ahorro">Ahorro</option>
-                                    <option value="billetera_digital">Billetera digital</option>
+                                    <option value="corriente" @if(old('tipo_cuenta', $empleado->tipo_cuenta) == 'corriente') selected @endif>Corriente</option>
+                                    <option value="ahorro" @if(old('tipo_cuenta', $empleado->tipo_cuenta) == 'ahorro') selected @endif>Ahorro</option>
+                                    <option value="billetera_digital" @if(old('tipo_cuenta', $empleado->tipo_cuenta) == 'billetera_digital') selected @endif>Billetera digital</option>
                                 </select>
                             </div>
+                            
                         </div>
 
                     </div>

@@ -19,24 +19,29 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
+            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <!-- NIT -->
+        <div class="mt-4">
+            <x-input-label for="nit" :value="__('NIT')" />
+            <x-text-input id="nit" class="block mt-1 w-full" type="text" name="nit" :value="old('nit')" required autocomplete="off" />
+            <x-input-error :messages="$errors->get('nit')" class="mt-2" />
+        </div>
+
+        <!-- Nombre de la Empresa -->
+        <div class="mt-4">
+            <x-input-label for="nombre_empresa" :value="__('Nombre de la Empresa')" />
+            <x-text-input id="nombre_empresa" class="block mt-1 w-full" type="text" name="nombre_empresa" :value="old('nombre_empresa')" required autocomplete="organization" />
+            <x-input-error :messages="$errors->get('nombre_empresa')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

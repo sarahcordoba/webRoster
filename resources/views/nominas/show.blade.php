@@ -31,57 +31,74 @@
                 </ul>
             </div>
             <div class="card">
-                <ul class="list-group list-group-horizontal list-group-flush">
-                    <li class="list-group-item d-flex flex-column">
-                        <strong>Salario:</strong> ${{ number_format($nomina->salario_base,2) }}
-                    </li>
-                    <li class="list-group-item d-flex flex-column">
-                        <strong>Total deducciones:</strong> ${{ number_format($nomina->total_deducciones,2) }}
-                    </li>
-                    <li class="list-group-item d-flex flex-column">
-                        <strong>Total comisiones:</strong> ${{ number_format($nomina->total_comisiones,2) }}
-                    </li>
-                    <li class="list-group-item d-flex flex-column">
-                        <strong>Total:</strong> ${{ number_format($nomina->total,2) }}
-                    </li>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Concepto</th>
+                            <th scope="col">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Salario</strong></td>
+                            <td>${{ number_format($nomina->salario_base, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total deducciones</strong></td>
+                            <td>${{ number_format($nomina->total_deducciones, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total comisiones</strong></td>
+                            <td>${{ number_format($nomina->total_comisiones, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td>${{ number_format($nomina->total, 2) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+            
 
             <p style="font-size:x-large"><strong>Comisiones</strong></p>
 
             <div class="card">
-                <ul class="list-group">
-                    @foreach($comisionesAplicadas as $comisiona)
-                    <ul class="list-group list-group-horizontal list-group-flush">
-                        <li class="list-group-item d-flex flex-column">
-                            <strong>Tipo</strong> {{ $comisiona->comision->tipo }}
-                        </li>
-                        <li class="list-group-item d-flex flex-column">
-                            <strong>Descripción</strong> {{ $comisiona->comision->descripcion }}
-                        </li>
-                        <li class="list-group-item d-flex flex-column">
-                            <strong>Porcentaje</strong>
-                            @if($comisiona->esporcentaje)
-                            {{ $comisiona->monto }}%
-                            @else
-                            N/A
-                            @endif
-                        </li>
-                        <li class="list-group-item d-flex flex-column">
-                            <strong>Monto</strong>
-                            @if($comisiona->comision->esporcentaje)
-                            {{-- Calcula el monto como el porcentaje del salario --}}
-                            ${{ number_format($nomina->empleado->salario * ($comisiona->monto), 2) }}
-                            @else
-                            {{-- Muestra el monto directamente si no es un porcentaje --}}
-                            ${{ number_format($comisiona->monto, 2) }}
-                            @endif
-                        </li>
-                    </ul>
-                    @endforeach
-
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Porcentaje</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($comisionesAplicadas as $comisiona)
+                        <tr>
+                            <td>{{ $comisiona->comision->tipo }}</td>
+                            <td>{{ $comisiona->comision->descripcion }}</td>
+                            <td>
+                                @if($comisiona->esporcentaje)
+                                {{ $comisiona->monto }}%
+                                @else
+                                N/A
+                                @endif
+                            </td>
+                            <td>
+                                @if($comisiona->comision->esporcentaje)
+                                {{-- Calcula el monto como el porcentaje del salario --}}
+                                ${{ number_format($nomina->empleado->salario * ($comisiona->monto), 2) }}
+                                @else
+                                {{-- Muestra el monto directamente si no es un porcentaje --}}
+                                ${{ number_format($comisiona->monto, 2) }}
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+            
 
             <p style="font-size:x-large"><strong>Deducciones</strong></p>
 
