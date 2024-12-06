@@ -59,12 +59,15 @@ Route::post('api/add/nomina', [NominaController::class, 'store']);
 
 
 
+// Route for root URL
 Route::get('/', function () {
-    return view('dashboard');
-});
+    return view('dashboard'); // Serve the dashboard view
+})->name('home'); // Optional name for the route
+
+// Route for /dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+    return view('dashboard'); // Serve the same dashboard view
+})->name('dashboard'); // Name it "dashboard"
 
 // Route::get('/dashboardb', function () {
 //     return view('dashboardb');
