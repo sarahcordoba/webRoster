@@ -1,27 +1,31 @@
 let currentStep = 1;
 
 function nextForm(event) {
-    event.preventDefault();
-    if (currentStep < 3) {
-        document.getElementById('form' + currentStep).style.display = 'none';
-        currentStep++;
-        document.getElementById('form' + currentStep).style.display = 'block';
-        updateSteps();
-        updateButtons();
-        document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+    if (event) {
+        event.preventDefault();
+        if (currentStep < 3) {
+            document.getElementById('form' + currentStep).style.display = 'none';
+            currentStep++;
+            document.getElementById('form' + currentStep).style.display = 'block';
+            updateSteps();
+            updateButtons();
+            document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+        }
     }
 }
 
 function prevForm(event) {
-    event.preventDefault();
-    if (currentStep > 1) {
-        document.getElementById('form' + currentStep).style.display = 'none';
-        currentStep--;
-        document.getElementById('form' + currentStep).style.display = 'block';
-        updateSteps();
-        updateButtons();
-        document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
-    }
+    if (event) {
+        event.preventDefault();
+        if (currentStep > 1) {
+            document.getElementById('form' + currentStep).style.display = 'none';
+            currentStep--;
+            document.getElementById('form' + currentStep).style.display = 'block';
+            updateSteps();
+            updateButtons();
+            document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
+        }
+    }   
 }
 
 function updateSteps() {
@@ -53,9 +57,9 @@ window.onload = function () {
     document.getElementById('form' + currentStep).style.display = 'block';
     document.querySelector('.progress-bar-fill').style.width = (currentStep / 3 * 100) + '%';
 
-    document.getElementById('empleado_form').addEventListener('submit', function (event) {
-        alert('Formulario enviado correctamente.');
-    });
+    // document.getElementById('empleado_form').addEventListener('submit', function (event) {
+    //     alert('Formulario enviado correctamente.');
+    // });
 
     document.getElementById('prevButton').addEventListener('click', prevForm);
     document.getElementById('nextButton').addEventListener('click', nextForm);
@@ -280,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const bancoSelect = document.getElementById('banco');
     const numeroCuentaInput = document.getElementById('numero_cuenta');
     const tipoCuentaSelect = document.getElementById('tipo_cuenta');
-    
+
     // Función para actualizar los campos de pago
     const actualizarCamposPago = function () {
         console.log(paymentMethodSelect.value);
@@ -288,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (paymentMethodSelect.value === 'pago_efectivo') {
             // Si es "pago_efectivo", ocultar los campos de transferencia bancaria y vaciarlos
             transferenciaInfo.style.display = 'none';
-            
+
             // Vaciar los campos de transferencia bancaria
             bancoSelect.value = null;
             numeroCuentaInput.value = '';
@@ -301,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
             transferenciaInfo.style.display = 'none';
         }
     };
-    
+
     // Llamar a la función cuando la página cargue para verificar el estado inicial
     actualizarCamposPago();
 

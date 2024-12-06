@@ -9,7 +9,10 @@ class Empleado extends Model
 {
     use HasFactory;
 
+    public $timestamps = false; // Desactiva timestamps
+
     protected $fillable = [
+        'idEmpleador',
         'primer_nombre',
         'segundo_nombre',
         'primer_apellido',
