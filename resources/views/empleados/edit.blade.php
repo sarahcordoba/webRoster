@@ -4,35 +4,35 @@
 
 @section('content')
     <div class="container">
-        <h1 class="titulito">Nuevo empleado/a</h1>
-        <p>Registra la información de nómina de las personas que integran tu equipo de trabajo.</p>
+        <h1 class="titulito">Editar empleado/a</h1>
+        <p>Edita la información de nómina de las personas que integran tu equipo de trabajo.</p>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <form action="{{ route('empleados.store') }}" method="POST" id="empleado_form" autocomplete="off">
+        <form action="{{ route('empleados.store', $empleado->id) }}" method="POST" id="empleado_form" autocomplete="off">
             @csrf
 
             <div class="progres">
-            <div class="progress-bar">
-                <div class="progress-bar-fill"></div>
-            </div>
-            <div class="step-container">
-                <div class="step" id="step1">
-                    <div class="step-indicator">1</div>
-                    <div class="step-label">Datos principales</div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
                 </div>
-                <div class="step" id="step2">
-                    <div class="step-indicator">2</div>
-                    <div class="step-label">Contrato</div>
+                <div class="step-container">
+                    <div class="step" id="step1">
+                        <div class="step-indicator">1</div>
+                        <div class="step-label">Datos principales</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-indicator">2</div>
+                        <div class="step-label">Contrato</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-indicator">3</div>
+                        <div class="step-label">Datos de pago</div>
+                    </div>
                 </div>
-                <div class="step" id="step3">
-                    <div class="step-indicator">3</div>
-                    <div class="step-label">Datos de pago</div>
-                </div>
-            </div>
             </div>
 
             <!-- Datos principales -->
@@ -44,32 +44,37 @@
                         <div class="form-group">
                             <label class="requir" for="primer_nombre">Primer nombre</label>
                             <input type="text" id="primer_nombre" name="primer_nombre" class="form-control" required
-                                autocomplete="off">
+                                autocomplete="off" value="{{ old('primer_nombre', $empleado->primer_nombre)}}">
                         </div>
                         <div class="form-group">
                             <label for="segundo_nombre">Segundo nombre</label>
-                            <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control">
+                            <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control" autocomplete="off"
+                            value="{{ old('segundo_nombre', $empleado->segundo_nombre)}}">
                         </div>
                         <div class="form-group">
                             <label class="requir" for="primer_apellido">Primer apellido</label>
-                            <input type="text" id="primer_apellido" name="primer_apellido" class="form-control" required>
+                            <input type="text" id="primer_apellido" name="primer_apellido" class="form-control" autocomplete="off"
+                            value="{{ old('primer_apellido', $empleado->primer_apellido)}}" required>
                         </div>
                         <div class="form-group">
                             <label for="segundo_apellido">Segundo apellido</label>
-                            <input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control">
+                            <input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control" autocomplete="off"
+                            value="{{ old('segundo_apellido', $empleado->segundo_apellido)}}">
                         </div>
                         <div class="form-group"> <label class="requir" for="tipo_identificacion">Tipo de identificación
-                            </label> <select id="tipo_identificacion" name="tipo_identificacion" class="form-control" required>
-                                <option value="cedula_ciudadania">Cédula de ciudadanía</option>
-                                <option value="cedula_extranjeria">Cédula de extranjería</option>
-                                <option value="pasaporte">Pasaporte</option>
-                                <option value="documento_extranjero">Documento de identificación extranjero</option>
-                                <option value="nit">NIT</option>
+                            </label> <select id="tipo_identificacion" name="tipo_identificacion" class="form-control"
+                                required>
+                                <option value="cedula_ciudadania" {{ old('tipo_identificacion', $empleado->tipo_identificacion) == 'cedula_ciudadania' ? 'selected' : '' }}>Cédula de ciudadanía</option>
+                                <option value="cedula_extranjeria" {{ old('tipo_identificacion', $empleado->tipo_identificacion) == 'cedula_extranjeria' ? 'selected' : '' }}>Cédula de extranjería</option>
+                                <option value="pasaporte" {{ old('tipo_identificacion', $empleado->tipo_identificacion) == 'pasaporte' ? 'selected' : '' }}>Pasaporte</option>
+                                <option value="documento_extranjero" {{ old('tipo_identificacion', $empleado->tipo_identificacion) == 'documento_extranjero' ? 'selected' : '' }}>Documento de identificación extranjero</option>
+                                <option value="nit" {{ old('tipo_identificacion', $empleado->tipo_identificacion) == 'nit' ? 'selected' : '' }}>NIT</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="requir" for="numero_identificacion">Número de identificación</label>
-                            <input type="text" id="numero_identificacion" name="numero_identificacion" class="form-control" required>
+                            <input type="text" id="numero_identificacion" name="numero_identificacion"
+                                class="form-control" required value="{{ old('numero_identificacion', $empleado->numero_identificacion)}}">
                         </div>
                         {{-- </div> --}}
                     </div>
@@ -136,7 +141,8 @@
                         <div class="row_d">
                             <div class="form-group">
                                 <label class="requir" for="fecha_contratacion">Fecha de contratación</label>
-                                <input type="date" id="fecha_contratacion" name="fecha_contratacion" class="form-control" required>
+                                <input type="date" id="fecha_contratacion" name="fecha_contratacion"
+                                    class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="requir" for="fecha_fin_contrato">Fecha de fin de contrato</label>
@@ -176,11 +182,12 @@
                         <div class="form-group"> <label class="requir" for="tipo_trabajador">Tipo de trabajador
                             </label>
                             {{-- <div id="tipo_cotizacion" class="dropdown-container"></div> --}}
-                             <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
+                            <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
                             </select>
                         </div>
                         <div class="form-group"> <label class="requir" for="subtipo_trabajador">Subtipo de trabajador
-                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control" required>
+                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control"
+                                required>
                                 <option value="no_aplica">No aplica</option>
                                 <option value="dependiente_pensionado_vejez">Dependiente pensionado por vejez activa
                                 </option>
@@ -236,7 +243,8 @@
                             </div>
                         </div>
                         <div class="form-group"> <label class="requir" for="nivel_riesgo" class="R">Nivel de
-                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control" required>
+                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control"
+                                required>
                                 <option value="I">Riesgo I - 0.522%</option>
                                 <option value="II">Riesgo I - 1.044%</option>
                                 <option value="III">Riesgo III - 2.436%</option>
@@ -267,7 +275,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="requir" for="dias_vacaciones">Días de vacaciones acumuladas</label>
-                                <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control" required>
+                                <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -375,7 +384,7 @@
                             <div class="form-group"> <label class="requir" for="fondo_cesantias">Caja de compensación
                                 </label> <select id="fondo_cesantias" name="fondo_cesantias" class="form-control"
                                     required>
-        
+
                                 </select>
                             </div>
                         </div>
@@ -398,6 +407,9 @@
         </form>
 
     </div>
+    <script>
+        
+    <script>
 
 @endsection
 <script type="text/javascript" src="{{ asset('js/forms/empleado-form.js') }}"></script>

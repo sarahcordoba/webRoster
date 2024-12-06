@@ -7,8 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'webRoster')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     <link rel="stylesheet" href="{{ asset('css/layouts/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/empleados/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/empleados/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/empleados/show.css') }}">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/x-icon">

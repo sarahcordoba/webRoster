@@ -225,6 +225,10 @@ body.dark-mode .mode-toggle {
     text-align: center;
 }
 
+.container-liquidaciones{
+    width: 1000px;
+}
+
 /* pantallas pequeñas */
 @media (min-width: 48.0625rem) {
 
@@ -238,3 +242,5 @@ body.dark-mode .mode-toggle {
     display: flex;
     justify-content: space-between;
 }
+
+

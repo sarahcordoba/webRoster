@@ -11,28 +11,38 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         <form action="{{ route('empleados.store') }}" method="POST" id="empleado_form" autocomplete="off">
             @csrf
 
             <div class="progres">
-            <div class="progress-bar">
-                <div class="progress-bar-fill"></div>
-            </div>
-            <div class="step-container">
-                <div class="step" id="step1">
-                    <div class="step-indicator">1</div>
-                    <div class="step-label">Datos principales</div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
                 </div>
-                <div class="step" id="step2">
-                    <div class="step-indicator">2</div>
-                    <div class="step-label">Contrato</div>
+                <div class="step-container">
+                    <div class="step" id="step1">
+                        <div class="step-indicator">1</div>
+                        <div class="step-label">Datos principales</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-indicator">2</div>
+                        <div class="step-label">Contrato</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-indicator">3</div>
+                        <div class="step-label">Datos de pago</div>
+                    </div>
                 </div>
-                <div class="step" id="step3">
-                    <div class="step-indicator">3</div>
-                    <div class="step-label">Datos de pago</div>
-                </div>
-            </div>
             </div>
 
             <!-- Datos principales -->
@@ -59,7 +69,8 @@
                             <input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control">
                         </div>
                         <div class="form-group"> <label class="requir" for="tipo_identificacion">Tipo de identificación
-                            </label> <select id="tipo_identificacion" name="tipo_identificacion" class="form-control" required>
+                            </label> <select id="tipo_identificacion" name="tipo_identificacion" class="form-control"
+                                required>
                                 <option value="cedula_ciudadania">Cédula de ciudadanía</option>
                                 <option value="cedula_extranjeria">Cédula de extranjería</option>
                                 <option value="pasaporte">Pasaporte</option>
@@ -69,7 +80,8 @@
                         </div>
                         <div class="form-group">
                             <label class="requir" for="numero_identificacion">Número de identificación</label>
-                            <input type="text" id="numero_identificacion" name="numero_identificacion" class="form-control" required>
+                            <input type="text" id="numero_identificacion" name="numero_identificacion"
+                                class="form-control" required>
                         </div>
                         {{-- </div> --}}
                     </div>
@@ -136,7 +148,8 @@
                         <div class="row_d">
                             <div class="form-group">
                                 <label class="requir" for="fecha_contratacion">Fecha de contratación</label>
-                                <input type="date" id="fecha_contratacion" name="fecha_contratacion" class="form-control" required>
+                                <input type="date" id="fecha_contratacion" name="fecha_contratacion"
+                                    class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="requir" for="fecha_fin_contrato">Fecha de fin de contrato</label>
@@ -176,11 +189,12 @@
                         <div class="form-group"> <label class="requir" for="tipo_trabajador">Tipo de trabajador
                             </label>
                             {{-- <div id="tipo_cotizacion" class="dropdown-container"></div> --}}
-                             <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
+                            <select id="tipo_trabajador" name="tipo_trabajador" class="form-control" required>
                             </select>
                         </div>
                         <div class="form-group"> <label class="requir" for="subtipo_trabajador">Subtipo de trabajador
-                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control" required>
+                            </label> <select id="subtipo_trabajador" name="subtipo_trabajador" class="form-control"
+                                required>
                                 <option value="no_aplica">No aplica</option>
                                 <option value="dependiente_pensionado_vejez">Dependiente pensionado por vejez activa
                                 </option>
@@ -236,7 +250,8 @@
                             </div>
                         </div>
                         <div class="form-group"> <label class="requir" for="nivel_riesgo" class="R">Nivel de
-                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control" required>
+                                riesgo</label> <select id="nivel_riesgo" name="nivel_riesgo" class="form-control"
+                                required>
                                 <option value="I">Riesgo I - 0.522%</option>
                                 <option value="II">Riesgo I - 1.044%</option>
                                 <option value="III">Riesgo III - 2.436%</option>
@@ -267,7 +282,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="requir" for="dias_vacaciones">Días de vacaciones acumuladas</label>
-                                <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control" required>
+                                <input type="text" id="dias_vacaciones" name="dias_vacaciones" class="form-control"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -281,7 +297,8 @@
                     <div class="card-header">Datos de pago</div>
                     <div class="card-body">
                         <div class="form-group"> <label class="requir" for="metodo_pago">Método de pago
-                            </label> <select id="metodo_pago" name="metodo_pago" class="form-control" required>
+                            </label> 
+                            <select id="metodo_pago" name="metodo_pago" class="form-control" required>
                                 <option value="pago_efectivo">Pago en efectivo</option>
                                 <option value="transferencia_bancaria">Transferencia bancaria</option>
                                 <option value="cheque_bancario">Cheque bancario</option>
@@ -375,7 +392,7 @@
                             <div class="form-group"> <label class="requir" for="fondo_cesantias">Caja de compensación
                                 </label> <select id="fondo_cesantias" name="fondo_cesantias" class="form-control"
                                     required>
-        
+
                                 </select>
                             </div>
                         </div>
@@ -383,11 +400,6 @@
                 </div>
             </div>
 
-            <!-- Acciones del formulario -->
-            {{-- <div class="form-actions">
-                <button type="button" class="btn btn-outline-primary" onclick="showPreviousSection()">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="showNextSection()">Siguiente</button>
-            </div> --}}
             <div class="d-flex justify-content-between mt-3">
                 <button class="btn btn-secondary" id="prevButton" onclick="prevForm()">Atrás</button>
                 <button class="btn btn-primary" id="nextButton" onclick="nextForm()">Siguiente</button>

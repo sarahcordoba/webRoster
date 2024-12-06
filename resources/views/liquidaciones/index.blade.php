@@ -5,7 +5,7 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<div class="container my-5">
+<div class="container-liquidaciones">
   <h1 class="titulito">Liquidaciones</h1>
   <div class="titlebutton">
     <p>Calcula los devengados y deducciones de las personas que integran tu equipo de trabajo</p>

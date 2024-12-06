@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container-show-empleados {
+    max-width: 56.25rem; /* 900px / 16 */
+    margin: 1.25rem auto; /* 20px / 16 */
+    border-radius: 0.5rem; /* 8px / 16 */
+    padding: 1.25rem; /* 20px / 16 */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem; /* 20px / 16 */
+}
+
+.header .details {
+    display: flex;
+    flex-direction: column;
+}
+
+.header .details .name {
+    font-size: 1.25rem; /* 20px / 16 */
+    font-weight: bold;
+    color: #333;
+}
+
+.header .details .salary {
+    font-size: 0.875rem; /* 14px / 16 */
+    color: #666;
+}
+
+.header .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem; /* 10px / 16 */
+}
+
+.header .actions button {
+    border: none;
+    border-radius: 0.3125rem; /* 5px / 16 */
+    padding: 0.5rem 0.75rem; /* 8px 12px / 16 */
+    cursor: pointer;
+    font-size: 0.875rem; /* 14px / 16 */
+}
+
+.edit-button {
+    background-color: #ffffff;
+    color: #666;
+    border: 0.0625rem solid #ccc; /* 1px / 16 */
+}
+
+.edit-button:hover {
+    background-color: #f0f0f0;
+}
+
+.new-button {
+    background-color: #43cba6;
+    color: #ffffff;
+}
+
+.new-button:hover {
+    background-color: #36a88a;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 0.125rem solid #e0e0e0; /* 2px / 16 */
+    margin-bottom: 1.25rem; /* 20px / 16 */
+}
+
+.tab {
+    padding: 0.625rem 1.25rem; /* 10px 20px / 16 */
+    font-size: 0.875rem; /* 14px / 16 */
+    cursor: pointer;
+    color: #666;
+}
+
+.tab.active {
+    color: #43cba6;
+    border-bottom: 0.125rem solid #43cba6; /* 2px / 16 */
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem; /* 20px / 16 */
+}
+
+.info-card {
+    background-color: #ffffff;
+    border: 0.0625rem solid #e0e0e0; /* 1px / 16 */
+    border-radius: 0.5rem; /* 8px / 16 */
+    padding: 1.25rem; /* 20px / 16 */
+    text-align: center;
+    flex: 1;
+    min-width: 9.375rem; /* 150px / 16 */
+}
+
+.info-card .title {
+    font-size: 0.875rem; /* 14px / 16 */
+    color: #666;
+    margin-bottom: 0.5rem; /* 8px / 16 */
+}
+
+.info-card .value {
+    font-size: 1.125rem; /* 18px / 16 */
+    font-weight: bold;
+    color: #333;
+}
