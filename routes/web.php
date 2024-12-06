@@ -49,6 +49,8 @@ Route::post('api/add/comisionesnomina', [ComisionNominaController::class, 'store
 Route::delete('api/delete/liquidacion/{id}', [LiquidacionController::class, 'destroy']);
 Route::delete('api/delete/deduccionnomina/{nomina_id}/{deduccion_id}', [DeduccionNominaController::class, 'destroy'])->name('deduccionnomina.delete');
 Route::delete('api/delete/comisionnomina/{nomina_id}/{comision_id}', [ComisionNominaController::class, 'destroy'])->name('comisionnomina.delete');
+Route::put('api/update/comisionnomina/{nomina_id}/{comision_id}', [ComisionNominaController::class, 'update'])->name('comisionnomina.update');
+Route::put('api/update/deduccionnomina/{nomina_id}/{deduccion_id}', [DeduccionNominaController::class, 'update'])->name('comisionnomina.update');
 
 
 Route::post('api/add/liquidacion', [LiquidacionController::class, 'store']);

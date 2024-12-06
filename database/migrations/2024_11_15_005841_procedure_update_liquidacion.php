@@ -42,14 +42,28 @@ return new class extends Migration
 
             UPDATE nominas
             SET
-                total_comisiones = COALESCE((
+                total_comisiones = COALESCE(( 
                     SELECT SUM(CASE
-                                WHEN esporcentaje = 1 THEN monto * (salario_base + total_comisiones)
+                                WHEN esporcentaje = 1 THEN monto * (salario_base)
                                 ELSE monto
                             END)
                     FROM comisiones_nomina
                     WHERE nomina_id = current_nomina_id), 0),
-                total_deducciones = COALESCE((
+                total_deducciones = COALESCE(( 
+                    SELECT SUM(CASE
+                                WHEN esporcentaje = 1 THEN monto * (salario_base + total_comisiones)
+                                ELSE monto
+                            END)
+                    FROM deducciones_nomina
+                    WHERE nomina_id = current_nomina_id), 0),
+                total = salario_base + COALESCE(( 
+                    SELECT SUM(CASE
+                                WHEN esporcentaje = 1 THEN monto * (salario_base)
+                                ELSE monto
+                            END)
+                    FROM comisiones_nomina
+                    WHERE nomina_id = current_nomina_id), 0)
+                        - COALESCE(( 
                     SELECT SUM(CASE
                                 WHEN esporcentaje = 1 THEN monto * (salario_base + total_comisiones)
                                 ELSE monto
@@ -82,8 +96,7 @@ return new class extends Migration
             total = 0
         WHERE id = liquidacionId;
     END IF;
-END
-        ');
+END        ');
   }
 
   /**

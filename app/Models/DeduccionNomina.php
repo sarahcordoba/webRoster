@@ -22,7 +22,15 @@ class DeduccionNomina extends Model
         'esporcentaje',
         'monto',
     ];
+    // Indicate the primary key (non-incrementing composite key)
+    protected $primaryKey = null;
+    public $incrementing = false;
 
+    // Attribute casting
+    protected $casts = [
+        'esporcentaje' => 'boolean',
+        'monto' => 'float',
+    ];
     // Relación con el modelo Nomina
     public function nomina()
     {
@@ -33,5 +41,23 @@ class DeduccionNomina extends Model
     public function deduccion()
     {
         return $this->belongsTo(Deduccion::class, 'deduccion_id');
+    }
+
+    // Override the save method for composite key support
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    public function getKeyType()
+    {
+        return 'array';
+    }
+
+    protected function setKeysForSaveQuery($query)
+    {
+        $query->where('nomina_id', $this->nomina_id)
+            ->where('deduccion_id', $this->deduccion_id);
+        return $query;
     }
 }
