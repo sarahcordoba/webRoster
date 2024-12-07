@@ -34,6 +34,10 @@
     --color-text-dark: #ffffff; /* Texto blanco */
 }
 
+.rowa{
+    gap: 20px;
+}
+
 /* Tabla en modo claro */
 .table {
     background-color: var(--color-bg-light) !important;
@@ -225,8 +229,8 @@ body.dark-mode .mode-toggle {
     text-align: center;
 }
 
-.container-liquidaciones-ver{
-    width: 56.25rem;
+.container-liquidaciones{
+    width: 56.25rem !important;
 }
 
 .card-liquidaciones{

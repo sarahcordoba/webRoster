@@ -215,7 +215,7 @@
             </div>
             <div>
                 <p>No. empleados</p>
-                <h2>{{ $user->employees_count ?? '0' }}</h2>
+                <h2>{{ $user->email ?? '0' }}</h2>
             </div>
             <div>
                 <p>Estado</p>

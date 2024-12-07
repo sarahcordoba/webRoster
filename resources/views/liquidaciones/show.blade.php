@@ -5,9 +5,9 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<div class="container">
+<div class="container-liquidaciones">
     <h1>Detalles de la Liquidación</h1>
-    <div class="row mt-4" style="display:flex;">
+    <div class="rowa mt-4" style="display:flex;">
         <div class="col-md-6">
             <div class="card" style="height: 6rem">
                 <div class="card-body text-center">
@@ -45,7 +45,7 @@
             </li>
         </ul>
     </div>
-    <div class="container my-5">
+    <div class="container-liquidaciones">
         <h1 class="titulito">Empleados</h1>
         <div class="titlebutton">
             <p>Gestiona la información de tus empleados/as que vas a tener en cuenta para liquidar la nómina de este período.</p>
